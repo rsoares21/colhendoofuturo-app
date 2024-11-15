@@ -7,32 +7,21 @@
   <style>
   </style>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/validator@13.9.0/validator.min.js"></script>
+
 </head>
 <body>
   <div id="auth-container">
     <h1 id="form-title">Login</h1>
-    <div id="message-box" class="message"></div>
+    <div id="message-box" style="visibility: hidden; margin-bottom: 10px;"></div>
     <form id="auth-form">
-      <div id="login-fields">  <!-- Contêiner para campos de login -->
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Email" required />
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" placeholder="Senha" required />
-      </div>
-      <div id="register-fields" style="display: none;"> <!-- Contêiner para campos de registro (inicialmente oculto) -->
-        <label for="register-email">Email:</label>
-        <input type="email" id="register-email" name="register-email" placeholder="Email" required />
-        <label for="register-password">Senha:</label>
-        <input type="password" id="register-password" name="register-password" placeholder="Senha" required />
-        <label for="register-password-confirm">Confirmar Senha:</label>
-        <input type="password" id="register-password-confirm" name="register-password-confirm" placeholder="Confirmar Senha" required />
-        <a href="#" id="login-link">Já possui conta? Faça login</a><br>
-      </div>
-      <button type="submit" id="submit-btn">Entrar</button> </form>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Senha" required />
+      <button type="submit" id="login-btn">Entrar</button>
+    </form>
     <a href="#" id="register-link">Cadastrar-se</a>
+    <a href="#" id="login-link" style="display: none;">Voltar ao Login</a>
   </div>
-  <div id="content-container" style="display:none;">
+  <div id="content-container">
     <h1>Bem-vindo ao sistema!</h1>
     <button id="logout-btn">Sair</button>
   </div>

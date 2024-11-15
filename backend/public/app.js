@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const authContainer = document.getElementById('auth-container');
   const contentContainer = document.getElementById('content-container');
   const messageBox = document.getElementById('message-box');
+  const loginLink = document.getElementById('login-link');
 
   // Função para mostrar a tela de login/cadastro
   const showAuthScreen = () => {
@@ -96,76 +97,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // Submeter o formulário de login ou cadastro
   authForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (validateInput()) {
-      if (document.getElementById('submit-btn').textContent === 'Entrar') {
-          login(emailInput.value.trim(), passwordInput.value.trim());
-      } else {
-          register(document.getElementById('register-email').value.trim(),
-          document.getElementById('register-password').value.trim());
-      }
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if (loginBtn.textContent === 'Entrar') {
+      // Se o texto do botão for "Entrar", estamos fazendo login
+      login(email, password);
+    } else {
+      // Caso contrário, é um registro
+      register(email, password);
     }
   });
 
   // Exibir o formulário de cadastro
   registerLink.addEventListener('click', (e) => {
     e.preventDefault();
-    showRegisterFields();
+    registerLink.style.display = 'none';
+    loginLink.style.display = 'block';
+    loginBtn.textContent = 'Registrar';
+    document.getElementById('form-title').textContent = 'Cadastro';
   });
 
-
-  // Função para validar a entrada do usuário
-  const validateInput = () => {
-    const email = (document.getElementById('submit-btn').textContent === 'Entrar') ? emailInput.value.trim() : document.getElementById('register-email').value.trim();
-    const password = (document.getElementById('submit-btn').textContent === 'Entrar') ? passwordInput.value.trim() : document.getElementById('register-password').value.trim();
-    const passwordConfirm = document.getElementById('register-password-confirm').value.trim();
-  
-    if (email === "" || password === "") {
-      showMessage("Por favor, preencha todos os campos.", true);
-      return false;
-    }
-  
-    if (!validator.isEmail(email)) {
-      showMessage("Por favor, insira um endereço de email válido.", true);
-      return false;
-    }
-  
-    if (password.length < 6) {
-      showMessage("A senha deve ter pelo menos 6 caracteres.", true);
-      return false;
-    }
-  
-    if (document.getElementById('submit-btn').textContent !== 'Entrar' && password !== passwordConfirm) {
-      showMessage("As senhas não coincidem.", true);
-      return false;
-    }
-  
-    return true;
-  };
-
-  const showLoginFields = () => {
-    document.getElementById('login-fields').style.display = 'block';
-    document.getElementById('register-fields').style.display = 'none';
-    document.getElementById('submit-btn').textContent = 'Entrar';
-    document.getElementById('form-title').textContent = 'Login';
-    document.getElementById('register-link').style.display = 'block';
-  };
-  
-  const showRegisterFields = () => {
-    document.getElementById('login-fields').style.display = 'none';
-    document.getElementById('register-fields').style.display = 'block';
-    document.getElementById('submit-btn').textContent = 'Registrar';
-    document.getElementById('form-title').textContent = 'Cadastro';
-    document.getElementById('register-link').style.display = 'none';
-  };
-
-  document.getElementById('login-link').addEventListener('click', (e) => {
+  // Exibir o formulário de login
+  loginLink.addEventListener('click', (e) => {
     e.preventDefault();
-    showLoginFields();
+    loginLink.style.display = 'none';
+    registerLink.style.display = 'block';
+    loginBtn.textContent = 'Entrar';
+    document.getElementById('form-title').textContent = 'Login';
   });
 
   // Inicializa a tela conforme o estado de login
   checkLoginStatus();
-
-  // Mostra a tela de login inicialmente
-  showLoginFields();
 });
