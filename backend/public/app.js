@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentContainer = document.getElementById('content-container');
   const messageBox = document.getElementById('message-box');
   const loginLink = document.getElementById('login-link');
+  const confirmPasswordInput = document.getElementById('confirm-password');
 
   // Função para mostrar a tela de login/cadastro
   const showAuthScreen = () => {
@@ -66,7 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Lidar com o registro
-  const register = async (email, password) => {
+  const register = async (email, password, confirmPassword) => {
+    if (password !== confirmPassword) {
+      showMessage('As senhas não coincidem.', true);
+      return;
+    }
     try {
       const response = await fetch('/register', {
         method: 'POST',
@@ -99,13 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
+    const confirmPassword = confirmPasswordInput.value.trim();
 
     if (loginBtn.textContent === 'Entrar') {
       // Se o texto do botão for "Entrar", estamos fazendo login
       login(email, password);
     } else {
       // Caso contrário, é um registro
-      register(email, password);
+      register(email, password, confirmPassword);
     }
   });
 
@@ -114,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     registerLink.style.display = 'none';
     loginLink.style.display = 'block';
+    confirmPasswordInput.style.display = 'block';
+    confirmPasswordInput.setAttribute('required', 'required');
     loginBtn.textContent = 'Registrar';
     document.getElementById('form-title').textContent = 'Cadastro';
   });
@@ -123,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     loginLink.style.display = 'none';
     registerLink.style.display = 'block';
+    confirmPasswordInput.style.display = 'none';
+    confirmPasswordInput.removeAttribute('required');
     loginBtn.textContent = 'Entrar';
     document.getElementById('form-title').textContent = 'Login';
   });
