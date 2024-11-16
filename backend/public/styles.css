@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f9;
@@ -7,6 +10,9 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url('background.jpg'); /* Add a background image related to planting */
+  background-size: cover;
+  background-position: center;
 }
 
 #auth-container {
@@ -17,7 +23,7 @@ body {
   width: 100%;
   max-width: 400px;
   padding: 20px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9); /* Make the background slightly transparent */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
@@ -26,6 +32,12 @@ h1 {
   margin-bottom: 20px;
   font-size: 24px;
   color: #333;
+  font-family: "Doto", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 50;
 }
 
 form {
@@ -39,6 +51,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  font-family: 'Roboto', sans-serif; /* Use the Roboto font for inputs */
 }
 
 button {
@@ -49,6 +62,7 @@ button {
   border: none;
   border-radius: 5px;
   font-size: 16px;
+  font-family: 'Roboto', sans-serif; /* Use the Roboto font for buttons */
   cursor: pointer;
 }
 
@@ -73,4 +87,10 @@ a {
   font-size: 14px;
   font-weight: bold;
   text-align: center;
+  font-family: "Doto", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 50;
 }
