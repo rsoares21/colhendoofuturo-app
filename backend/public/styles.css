@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  margin: 0;
+  margin: 10;
   padding: 0;
   background-color: #f4f4f9;
   display: flex;
@@ -13,56 +13,44 @@ body {
   background-image: url('background.jpg'); /* Add a background image related to planting */
   background-size: cover;
   background-position: center;
+  flex-direction: column; /* Ensure proper alignment on mobile devices */
 }
 
-#auth-container {
+#auth-container, #content-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%; /* Adjust width for mobile devices */
   max-width: 400px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.9); /* Make the background slightly transparent */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-}
-
-h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
-  font-family: "Doto", serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
-  font-style: normal;
-  font-variation-settings:
-    "ROND" 50;
+  text-align: center;
+  margin: 20px; /* Add margin to create space on the sides */
 }
 
 form {
   width: 100%;
+  padding: 0 10px; /* Add padding to create space inside the form */
+  box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
 }
 
-input {
-  width: 100%;
+input, button {
+  width: calc(100% - 20px); /* Adjust width to fit within the form's padding */
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  font-family: 'Roboto', sans-serif; /* Use the Roboto font for inputs */
+  font-family: 'Roboto', sans-serif; /* Use the Roboto font for inputs and buttons */
 }
 
 button {
-  width: 100%;
-  padding: 10px;
   background-color: #4CAF50;
   color: #fff;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif; /* Use the Roboto font for buttons */
   cursor: pointer;
 }
 
@@ -78,11 +66,6 @@ a {
   text-align: center;
 }
 
-#content-container {
-  display: none;
-  text-align: center;
-}
-
 #message-box {
   font-size: 14px;
   font-weight: bold;
@@ -93,4 +76,96 @@ a {
   font-style: normal;
   font-variation-settings:
     "ROND" 50;
+}
+
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  z-index: 1000;
+}
+
+#loading-overlay.visible {
+  visibility: visible;
+}
+
+#loading-spinner {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #4CAF50;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+#sidebar.visible {
+  transform: translateX(0);
+}
+
+#sidebar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+#sidebar a:hover {
+  background-color: #575757;
+}
+
+#menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1001;
+  width: 40px; /* Set fixed width */
+  height: 40px; /* Set fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#menu-btn:hover {
+  background-color: #45a049;
+}
+
+#menu-btn svg {
+  width: 24px;
+  height: 24px;
 }

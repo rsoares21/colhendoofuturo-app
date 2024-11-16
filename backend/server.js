@@ -72,7 +72,8 @@ app.post('/register', async (req, res) => {
     // Enviar e-mail de verificação
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        return console.log(error);
+        console.log('Erro ao enviar e-mail:', error);
+        return res.status(500).json({ message: 'Erro ao enviar e-mail de verificação.' });
       }
       console.log('Email enviado: ' + info.response);
     });
@@ -83,7 +84,7 @@ app.post('/register', async (req, res) => {
 
     res.status(201).json({ message: 'Cadastro realizado com sucesso! Verifique seu email.' });
   } catch (error) {
-    console.error(error);
+    console.error('Erro ao registrar o usuário:', error);
     res.status(500).json({ message: 'Erro ao registrar o usuário.' });
   }
 });
@@ -218,6 +219,27 @@ app.post('/resend-verification-email', async (req, res) => {
       res.status(500).json({ message: 'Erro ao reenviar o e-mail de verificação.' });
     }
   });
+
+// Rota para validar a assinatura do token
+app.post('/validate-token', (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ message: 'Token não fornecido.' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Token inválido.' });
+    }
+    res.status(200).json({ message: 'Token válido.', decoded });
+  });
+});
+
+// Rota para servir a página protegida
+app.get('/home.html', authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+});
 
 // Iniciar o servidor na porta 5000
 app.listen(port, () => console.log(`Backend rodando na porta ${port}`));

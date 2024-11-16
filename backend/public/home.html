@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Colhendo o Futuro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <button id="menu-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+    </svg>
+  </button>
+  <div id="sidebar">
+    <a href="#">Home</a>
+    <a href="#">Perfil</a>
+    <a href="#">Configurações</a>
+    <a href="#" id="logout-btn">Sair</a>
+  </div>
+  <div id="content-container">
+    <h1>Bem-vindo ao Colhendo o Futuro!</h1>
+  </div>
+  <div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1/index.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = '/';
+        return;
+      }
+
+      try {
+        const response = await fetch('/validate-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          console.log('Token válido:', result.decoded);
+        } else {
+          console.error('Token inválido:', result.message);
+          window.location.href = '/';
+          return;
+        }
+      } catch (error) {
+        console.error('Erro ao validar o token:', error);
+        window.location.href = '/';
+        return;
+      }
+
+      var menuBtn = document.getElementById('menu-btn');
+      var sidebar = document.getElementById('sidebar');
+      menuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('visible');
+      });
+
+      var logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          try {
+            localStorage.removeItem('loggedInUser');
+            localStorage.removeItem('token');
+          } catch (error) {
+            console.error('Erro ao acessar o localStorage:', error);
+          }
+          document.getElementById('loading-overlay').classList.add('visible');
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1000);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
