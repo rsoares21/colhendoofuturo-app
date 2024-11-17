@@ -194,9 +194,10 @@ a {
 .tab-button {
   background: none;
   border: none;
-  color: white;
+  color: wheat;
   font-size: 20px;
   cursor: pointer;
+
 }
 
 .tab-button:hover {
@@ -204,7 +205,8 @@ a {
 }
 
 .tab-button.active {
-  color: gold; /* Change color of active tab icon to gold */
+  color: #f66d87; /* Change color of active tab icon to gold */
+  background-color: #60752d;
 }
 
 .tab-content {
