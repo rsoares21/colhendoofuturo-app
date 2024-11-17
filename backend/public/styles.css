@@ -219,16 +219,20 @@ a {
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Add transition effects */
   opacity: 0;
   transform: translateY(20px);
+  display: none; /* Ensure the content is hidden initially */
 }
 
 .tab-content-padded {
   padding: 20px; /* Add padding to the tab content */
 }
 
+.tab-content.show {
+  display: block; /* Ensure the content is displayed */
+}
+
 .tab-content.active {
   opacity: 1;
   transform: translateY(0);
-  display: block;
 }
 
 #floating-image {
