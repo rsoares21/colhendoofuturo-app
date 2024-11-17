@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -207,15 +208,17 @@ a {
 }
 
 .tab-content {
-  display: none;
   padding-bottom: 60px; /* Add padding to avoid content being hidden behind tabs */
   background: #f6f6f2; /* Make the background of the tab content more transparent */
   width: 100%; /* Ensure the content takes the full width */
-  height: calc(100%); /* Ensure the content takes the full height minus the top and bottom margins */
+  height: calc(100% - 70px); /* Ensure the content takes the full height minus the top and bottom margins */
   position: absolute; /* Position the content absolutely */
   top: 70px; /* Add top margin to avoid being hidden behind the top bar */
   left: 0; /* Align to the left */
   color: olive;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Add transition effects */
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .tab-content-padded {
@@ -223,6 +226,8 @@ a {
 }
 
 .tab-content.active {
+  opacity: 1;
+  transform: translateY(0);
   display: block;
 }
 
@@ -258,7 +263,7 @@ a {
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: "Lobster", sans-serif; /* Use a more suitable font */
+  font-family: "Paytone One", sans-serif; /* Use a more suitable font */
   font-weight: 400;
   font-style: normal;
   font-size: 14px; /* Keep font size */

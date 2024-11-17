@@ -61,7 +61,13 @@ document.addEventListener('DOMContentLoaded', async function() {
       tabButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
       tabContents.forEach(content => {
-        content.style.display = content.id === `${tab}-tab` ? 'block' : 'none';
+        if (content.id === `${tab}-tab`) {
+          content.classList.add('active');
+          content.style.display = 'block'; // Ensure the content is displayed
+        } else {
+          content.classList.remove('active');
+          content.style.display = 'none'; // Hide other tab contents
+        }
       });
       sidebar.classList.remove('visible'); // Collapse sidebar when clicking on a tab button
 
@@ -80,5 +86,6 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
 
   // Show home tab content by default
-  document.getElementById('home-tab').style.display = 'block';
+  document.getElementById('home-tab').classList.add('active');
+  document.getElementById('home-tab').style.display = 'block'; // Ensure the home tab content is displayed
 });
