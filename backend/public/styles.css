@@ -90,7 +90,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.95); /* Make the background darker */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,7 +211,7 @@ tab-button:hover {
   position: absolute; /* Position the content absolutely */
   top: 70px; /* Add top margin to avoid being hidden behind the top bar */
   left: 0; /* Align to the left */
-  color: wheat;
+  color: olive;
 }
 
 .tab-content.active {
