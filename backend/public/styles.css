@@ -152,8 +152,8 @@ a {
 
 #menu-btn {
   position: fixed;
-  top: 10px;
-  left: 20px;
+  top: 5px;
+  left: 10px;
   background-color: #4CAF50;
   color: #fff;
   border: none;
@@ -222,6 +222,17 @@ tab-button:hover {
   width: 40px; /* Set fixed width */
   height: 40px; /* Set fixed height */
   z-index: 1001;
+  filter: drop-shadow(0 0 1px #f66d87) drop-shadow(0 0 1px #f66d87) drop-shadow(0 0 1px #f66d87) drop-shadow(0 0 1px #f66d87);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 1px olive) drop-shadow(0 0 2px olive) drop-shadow(0 0 3px olive) drop-shadow(0 0 4px olive);
+  }
+  to {
+    filter: drop-shadow(0 0 2px #f66d87) drop-shadow(0 0 2px #f66d87) drop-shadow(0 0 3px #f66d87) drop-shadow(0 0 4px #f66d87);
+  }
 }
 
 #top-bar {
@@ -241,3 +252,4 @@ tab-button:hover {
   font-size: 14px; /* Increase font size */
   color: gold; /* Set font color to white */
 }
+
