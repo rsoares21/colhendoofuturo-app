@@ -102,18 +102,21 @@ a {
   visibility: visible;
 }
 
-#loading-spinner {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #4CAF50;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
+#loading-heart {
+  width: 100px; /* Set fixed width */
+  height: 100px; /* Set fixed height */
+  background: url('coracao-low.png') no-repeat center center;
+  background-size: contain;
+  animation: blink 1.5s ease-in-out infinite alternate;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
 }
 
 #sidebar {
