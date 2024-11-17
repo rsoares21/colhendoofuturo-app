@@ -235,6 +235,7 @@ a {
   z-index: 1001;
   filter: drop-shadow(0 0 1px #f66d87) drop-shadow(0 0 1px #f66d87) drop-shadow(0 0 1px #f66d87) drop-shadow(0 0 1px #f66d87);
   animation: glow 1.5s ease-in-out infinite alternate;
+  transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
 @keyframes glow {

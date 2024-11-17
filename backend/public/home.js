@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async function() {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -54,6 +53,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
+  const floatingImage = document.getElementById('floating-image');
 
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -64,6 +64,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         content.style.display = content.id === `${tab}-tab` ? 'block' : 'none';
       });
       sidebar.classList.remove('visible'); // Collapse sidebar when clicking on a tab button
+
+      // Apply transition effect to floating image
+      floatingImage.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        floatingImage.style.transform = 'scale(1)';
+      }, 300);
     });
   });
 
