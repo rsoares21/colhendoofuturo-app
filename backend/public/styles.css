@@ -182,7 +182,7 @@ a {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  background-color: rgba(76, 175, 80, 0.8); /* Adjust background opacity to 20% */
+  background-color: rgba(76, 175, 80, 0.9); /* Adjust background opacity to 90% */
   padding: 10px 0;
   z-index: 1000;
 }
@@ -191,7 +191,7 @@ a {
   background: none;
   border: none;
   color: white;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -204,7 +204,7 @@ tab-button:hover {
   padding-bottom: 60px; /* Add padding to avoid content being hidden behind tabs */
   background: rgba(255, 255, 255, 0.2); /* Make the background of the tab content more transparent */
   width: 100%; /* Ensure the content takes the full width */
-  height: calc(100% - 130px); /* Ensure the content takes the full height minus the top and bottom margins */
+  height: calc(100%); /* Ensure the content takes the full height minus the top and bottom margins */
   position: absolute; /* Position the content absolutely */
   top: 70px; /* Add top margin to avoid being hidden behind the top bar */
   left: 0; /* Align to the left */
