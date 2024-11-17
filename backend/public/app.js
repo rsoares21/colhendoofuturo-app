@@ -91,6 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Lidar com o login
   const login = async (email, password) => {
     showLoading();
+    const minLoadingTime = 3000; // 3 seconds
+    const startTime = Date.now();
+
     try {
       const response = await fetch('/login', {
         method: 'POST',
@@ -100,6 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const result = await response.json();
 
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = minLoadingTime - elapsedTime;
+
       if (response.ok) {
         try {
           localStorage.setItem('loggedInUser', JSON.stringify(result.user));
@@ -108,14 +114,16 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('Erro ao salvar no localStorage:', error);
         }
         showMessage('Login bem-sucedido!');
-        showContent();
+        setTimeout(showContent, remainingTime > 0 ? remainingTime : 0);
       } else {
         showMessage(result.message, true);
+        setTimeout(hideLoading, remainingTime > 0 ? remainingTime : 0);
       }
     } catch (error) {
       showMessage('Erro ao realizar login. Tente novamente mais tarde.', true);
-    } finally {
-      hideLoading();
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = minLoadingTime - elapsedTime;
+      setTimeout(hideLoading, remainingTime > 0 ? remainingTime : 0);
     }
   };
 
