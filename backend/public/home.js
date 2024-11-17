@@ -36,8 +36,24 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
 
   var logoutBtn = document.getElementById('logout-btn');
+  var logoutBtnConta = document.getElementById('logout-btn-conta'); // Add reference to the new logout button
   if (logoutBtn) {
     logoutBtn.addEventListener('click', function() {
+      try {
+        localStorage.removeItem('loggedInUser');
+        localStorage.removeItem('token');
+      } catch (error) {
+        console.error('Erro ao acessar o localStorage:', error);
+      }
+      document.getElementById('loading-overlay').classList.add('visible');
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+    });
+  }
+
+  if (logoutBtnConta) {
+    logoutBtnConta.addEventListener('click', function() {
       try {
         localStorage.removeItem('loggedInUser');
         localStorage.removeItem('token');
@@ -67,6 +83,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             content.classList.add('active');
             content.scrollTo(0, 0); // Scroll to the top of the content
             window.scrollTo({ top: content.offsetTop - 70, behavior: 'smooth' }); // Adjust for the top bar height
+
+            // Fetch and display user information if the "Informações da Conta" tab is selected
+            if (tab === 'conta') {
+              fetchUserInfo();
+            }
           }, 10); // Add a small delay to trigger the transition
         } else {
           content.classList.remove('active');
@@ -98,4 +119,28 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('home-tab').scrollTo(0, 0); // Scroll to the top of the content
     window.scrollTo({ top: document.getElementById('home-tab').offsetTop - 70, behavior: 'smooth' }); // Adjust for the top bar height
   }, 10); // Add a small delay to trigger the transition
+
+  // Function to fetch and display user information
+  async function fetchUserInfo() {
+    try {
+      const response = await fetch('/profile', {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        const userInfoContainer = document.getElementById('user-info');
+        userInfoContainer.innerHTML = `
+          <p>Email: ${result.user.email}</p>
+          <p>Verificado: ${result.user.verified ? 'Sim' : 'Não'}</p>
+        `;
+      } else {
+        console.error('Erro ao buscar informações do usuário:', result.message);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar informações do usuário:', error);
+    }
+  }
 });
