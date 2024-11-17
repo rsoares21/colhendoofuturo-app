@@ -222,10 +222,12 @@ a {
   opacity: 0;
   transform: translateY(20px);
   display: none; /* Ensure the content is hidden initially */
+  overflow-y: auto; /* Ensure the content is scrollable */
 }
 
 .tab-content-padded {
   padding: 20px; /* Add padding to the tab content */
+  background: #f6f6f2; /* Ensure the background color is maintained */
 }
 
 .tab-content.show {
