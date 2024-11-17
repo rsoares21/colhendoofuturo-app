@@ -21,10 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Função para mostrar o conteúdo protegido
-  const showContent = () => {
+  const showContent = async () => {
     const token = localStorage.getItem('token');
     if (token) {
-      window.location.href = '/home.html';
+      try {
+        const response = await fetch('/validate-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          window.location.href = '/home.html';
+        } else {
+          localStorage.removeItem('token');
+          showAuthScreen();
+        }
+      } catch (error) {
+        console.error('Erro ao validar o token:', error);
+        localStorage.removeItem('token');
+        showAuthScreen();
+      }
     } else {
       showAuthScreen();
     }

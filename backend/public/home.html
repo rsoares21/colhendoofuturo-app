@@ -91,11 +91,13 @@
           console.log('Token válido:', result.decoded);
         } else {
           console.error('Token inválido:', result.message);
+          localStorage.removeItem('token');
           window.location.href = '/';
           return;
         }
       } catch (error) {
         console.error('Erro ao validar o token:', error);
+        localStorage.removeItem('token');
         window.location.href = '/';
         return;
       }
@@ -131,6 +133,13 @@
           tabContents.forEach(content => {
             content.style.display = content.id === `${tab}-tab` ? 'block' : 'none';
           });
+          sidebar.classList.remove('visible'); // Collapse sidebar when clicking on a tab button
+        });
+      });
+
+      tabContents.forEach(content => {
+        content.addEventListener('click', () => {
+          sidebar.classList.remove('visible'); // Collapse sidebar when clicking on tab content
         });
       });
 
