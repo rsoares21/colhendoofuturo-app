@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', async function() {
           content.style.display = 'block'; // Ensure the content is displayed
           setTimeout(() => {
             content.classList.add('active');
-            window.scrollTo({ top: content.offsetTop - 70, behavior: 'smooth' }); // Scroll to the top of the content, adjusting for the top bar height
+            content.scrollTo(0, 0); // Scroll to the top of the content
+            window.scrollTo({ top: content.offsetTop - 70, behavior: 'smooth' }); // Adjust for the top bar height
           }, 10); // Add a small delay to trigger the transition
         } else {
           content.classList.remove('active');
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   document.getElementById('home-tab').style.display = 'block';
   setTimeout(() => {
     document.getElementById('home-tab').classList.add('active');
-    window.scrollTo({ top: document.getElementById('home-tab').offsetTop - 70, behavior: 'smooth' }); // Scroll to the top of the content, adjusting for the top bar height
+    document.getElementById('home-tab').scrollTo(0, 0); // Scroll to the top of the content
+    window.scrollTo({ top: document.getElementById('home-tab').offsetTop - 70, behavior: 'smooth' }); // Adjust for the top bar height
   }, 10); // Add a small delay to trigger the transition
 });
