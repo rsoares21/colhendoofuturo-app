@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -16,6 +17,11 @@ body {
   flex-direction: column; /* Ensure proper alignment on mobile devices */
 }
 
+body.home {
+  background-image: none; /* Remove background image */
+  background-color: olive; /* Set background color to olive */
+}
+
 #auth-container, #content-container {
   display: flex;
   flex-direction: column;
@@ -24,7 +30,7 @@ body {
   width: 90%; /* Adjust width for mobile devices */
   max-width: 400px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9); /* Make the background slightly transparent */
+  background: rgba(255, 255, 255, 0.7); /* Make the background slightly transparent */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   text-align: center;
@@ -146,7 +152,7 @@ a {
 
 #menu-btn {
   position: fixed;
-  top: 20px;
+  top: 10px;
   left: 20px;
   background-color: #4CAF50;
   color: #fff;
@@ -168,4 +174,70 @@ a {
 #menu-btn svg {
   width: 24px;
   height: 24px;
+}
+
+#tabs {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(76, 175, 80, 0.8); /* Adjust background opacity to 20% */
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+tab-button:hover {
+  color: #ddd;
+}
+
+.tab-content {
+  display: none;
+  padding-bottom: 60px; /* Add padding to avoid content being hidden behind tabs */
+  background: rgba(255, 255, 255, 0.2); /* Make the background of the tab content more transparent */
+  width: 100%; /* Ensure the content takes the full width */
+  height: calc(100% - 130px); /* Ensure the content takes the full height minus the top and bottom margins */
+  position: absolute; /* Position the content absolutely */
+  top: 70px; /* Add top margin to avoid being hidden behind the top bar */
+  left: 0; /* Align to the left */
+  color: wheat;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+#floating-image {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px; /* Set fixed width */
+  height: 40px; /* Set fixed height */
+  z-index: 1001;
+}
+
+#top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px; /* Set height to 70px */
+  background-color: olive; /* Set background color to olive */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Lobster", sans-serif; /* Use a more suitable font */
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px; /* Increase font size */
+  color: gold; /* Set font color to white */
 }

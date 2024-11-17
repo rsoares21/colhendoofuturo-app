@@ -5,24 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home - Colhendo o Futuro</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body>
+<body class="home">
+  <div id="top-bar">
+    <h1>Colhendo o Futuro</h1>
+  </div>
   <button id="menu-btn">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
     </svg>
   </button>
+  <img id="floating-image" src="coracao-low.png" alt="Floating Image">
   <div id="sidebar">
     <a href="#">Home</a>
     <a href="#">Perfil</a>
     <a href="#">Configurações</a>
     <a href="#" id="logout-btn">Sair</a>
   </div>
-  <div id="content-container">
-    <h1>Bem-vindo ao Colhendo o Futuro!</h1>
+  <div id="tab-content">
+    <div class="tab-content" id="home-tab">
+      <h1>Bem vindo!</h1>
+    </div>
+    <div class="tab-content" id="buscar-tab" style="display: none;">
+      <h1>Buscar Produtos da Horta</h1>
+      <!-- Add content for Buscar tab here -->
+    </div>
+    <div class="tab-content" id="coleta-tab" style="display: none;">
+      <h1>Agendar Coleta de Resíduos</h1>
+      <!-- Add content for Coleta tab here -->
+    </div>
+    <div class="tab-content" id="conta-tab" style="display: none;">
+      <h1>Informações da Conta</h1>
+      <!-- Add content for Conta tab here -->
+    </div>
   </div>
   <div id="loading-overlay">
     <div id="loading-spinner"></div>
+  </div>
+  <div id="tabs">
+    <button class="tab-button" data-tab="home"><i class="fas fa-home"></i></button>
+    <button class="tab-button" data-tab="buscar"><i class="fas fa-search"></i></button>
+    <button class="tab-button" data-tab="coleta"><i class="fas fa-calendar-alt"></i></button>
+    <button class="tab-button" data-tab="conta"><i class="fas fa-user"></i></button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1/index.min.js"></script>
   <script>
@@ -76,6 +101,21 @@
           }, 1000);
         });
       }
+
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tab = button.getAttribute('data-tab');
+          tabContents.forEach(content => {
+            content.style.display = content.id === `${tab}-tab` ? 'block' : 'none';
+          });
+        });
+      });
+
+      // Show home tab content by default
+      document.getElementById('home-tab').style.display = 'block';
     });
   </script>
 </body>
