@@ -198,8 +198,12 @@ a {
   cursor: pointer;
 }
 
-tab-button:hover {
+.tab-button:hover {
   color: #ddd;
+}
+
+.tab-button.active {
+  color: gold; /* Change color of active tab icon to gold */
 }
 
 .tab-content {
