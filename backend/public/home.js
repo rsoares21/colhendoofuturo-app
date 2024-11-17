@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         userInfoContainer.innerHTML = `
           <p>Email: ${result.user.email}</p>
           <p>Verificado: ${result.user.verified ? 'Sim' : 'Não'}</p>
+          <p>Roles: ${result.user.roles.join(', ')}</p> <!-- Display user roles -->
         `;
       } else {
         console.error('Erro ao buscar informações do usuário:', result.message);

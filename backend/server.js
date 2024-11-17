@@ -55,6 +55,7 @@ app.post('/register', async (req, res) => {
       email,
       password: hashedPassword,
       verified: false, // Definindo que o email não foi verificado
+      roles: ['USER'], // Define a role padrão como "USER"
     });
 
     console.log("Tentando salvar o usuário:", newUser); // Adicionando log para debug
@@ -131,7 +132,7 @@ app.post('/login', async (req, res) => {
 
     // Gera o JWT
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, roles: user.roles }, // Inclui as roles no token
       process.env.JWT_SECRET, // A chave secreta do JWT
       { expiresIn: '1h' } // O token vai expirar em 1 hora
     );

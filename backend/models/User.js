@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
   lastVerificationEmailSent: {
     type: Date, // Armazenará a data do último envio do e-mail de verificação
     default: null,
+  },
+  roles: {
+    type: [String],
+    default: ['USER'], // Define a role padrão como "USER"
   }
 }, { timestamps: true }); // Adiciona createdAt e updatedAt automaticamente
 
