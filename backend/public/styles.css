@@ -218,6 +218,10 @@ a {
   color: olive;
 }
 
+.tab-content-padded {
+  padding: 20px; /* Add padding to the tab content */
+}
+
 .tab-content.active {
   display: block;
 }
