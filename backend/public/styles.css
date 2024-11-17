@@ -19,7 +19,7 @@ body {
 
 body.home {
   background-image: none; /* Remove background image */
-  background-color: #60752d; /* Set background color to olive */
+  background-color: #60752d; /* Set background color to 60752d */
 }
 
 #auth-container, #content-container {
@@ -182,7 +182,7 @@ a {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  background-color: rgba(76, 175, 80, 0.9); /* Adjust background opacity to 90% */
+  background-color: rgba(96, 117, 45, 0.9); /* Adjust background opacity to 90% */
   padding: 10px 0;
   z-index: 1000;
 }
@@ -249,7 +249,8 @@ tab-button:hover {
   font-family: "Lobster", sans-serif; /* Use a more suitable font */
   font-weight: 400;
   font-style: normal;
-  font-size: 14px; /* Increase font size */
-  color: gold; /* Set font color to white */
+  font-size: 14px; /* Keep font size */
+  color: greenyellow; /* Set font color to gold */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow effect */
 }
 
