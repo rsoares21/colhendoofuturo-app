@@ -141,6 +141,7 @@ a {
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   z-index: 1000;
+  overflow: hidden; /* Ensure the sidebar doesn't overflow */
 }
 
 #sidebar.visible {
@@ -154,10 +155,12 @@ a {
   width: 100%;
   text-align: center;
   display: block;
+  overflow: hidden; /* Ensure the link doesn't overflow */
 }
 
 #sidebar a:hover {
   background-color: rgba(96, 117, 45, 0.8); /* Change hover background color to improve visibility */
+  overflow: hidden; /* Ensure the hover effect doesn't overflow */
 }
 
 #logout-container {

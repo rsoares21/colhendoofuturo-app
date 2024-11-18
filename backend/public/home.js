@@ -71,16 +71,16 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
+  const sidebarLinks = document.querySelectorAll('#sidebar a[data-tab]');
   const floatingImage = document.getElementById('floating-image');
 
   let coletaChart;
   let poluicaoChart;
 
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const tab = button.getAttribute('data-tab');
+  function switchTab(tab) {
+    sidebar.classList.remove('visible'); // Collapse sidebar immediately
+    setTimeout(() => {
       tabButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
       tabContents.forEach(content => {
         if (content.id === `${tab}-tab`) {
           content.style.display = 'block'; // Ensure the content is displayed
@@ -106,13 +106,27 @@ document.addEventListener('DOMContentLoaded', async function() {
           }, 300); // Match the delay with the transition duration
         }
       });
-      sidebar.classList.remove('visible'); // Collapse sidebar when clicking on a tab button
 
       // Apply transition effect to floating image
       floatingImage.style.transform = 'scale(1.2)';
       setTimeout(() => {
         floatingImage.style.transform = 'scale(1)';
       }, 300);
+    }, 300); // Add a delay to ensure sidebar is fully hidden
+  }
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const tab = button.getAttribute('data-tab');
+      switchTab(tab);
+    });
+  });
+
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const tab = link.getAttribute('data-tab');
+      switchTab(tab);
     });
   });
 
