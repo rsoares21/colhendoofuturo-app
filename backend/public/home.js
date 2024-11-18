@@ -150,13 +150,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         `;
 
         // Display "Administração" link if user has "ADMIN" role
-        if (result.user.roles.includes('ADMIN') && !document.getElementById('admin-link')) {
-          const adminLink = document.createElement('a');
-          adminLink.id = 'admin-link';
-          adminLink.href = '#';
-          adminLink.textContent = 'Administração';
-          const logoutContainer = document.getElementById('logout-container');
-          sidebar.insertBefore(adminLink, logoutContainer); // Insert above the logout container
+        if (result.user.roles.includes('ADMIN')) {
+          document.getElementById('admin-link').style.display = 'block';
         }
       } else {
         console.error('Erro ao buscar informações do usuário:', result.message);

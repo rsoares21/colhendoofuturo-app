@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADM - Colhendo o Futuro</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="adm.js"></script>
+</head>
+<body class="admin">
+  <div id="top-bar">
+    <h1>Administração - Colhendo o Futuro</h1>
+  </div>
+  <button id="menu-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+    </svg>
+  </button>
+  <img id="floating-image" src="coracao-low.png" alt="Floating Image">
+  <div id="sidebar">
+    <a href="home.html">Voltar para Home</a> <!-- Link to return to home area -->
+    <a href="#" data-tab="dashboard">Dashboard</a>
+    <a href="#" data-tab="usuarios">Usuários</a>
+    <a href="#" data-tab="configuracoes">Configurações</a>
+    <a href="#" data-tab="relatorios">Relatórios</a>
+    <a href="#" data-tab="suporte">Suporte</a>
+    <div id="logout-container">
+      <a href="#" id="logout-btn">Sair</a>
+    </div>
+  </div>
+  <div id="tab-content">
+    <div class="tab-content" id="dashboard-tab">
+      <div class="tab-content-padded">
+        <h1>Dashboard</h1>
+        <!-- Add content for Dashboard tab here -->
+      </div>
+    </div>
+    <div class="tab-content" id="usuarios-tab" style="display: none;">
+      <div class="tab-content-padded">
+        <h1>Gerenciar Usuários</h1>
+        <!-- Add content for Usuários tab here -->
+      </div>
+    </div>
+    <div class="tab-content" id="configuracoes-tab" style="display: none;">
+      <div class="tab-content-padded">
+        <h1>Configurações</h1>
+        <!-- Add content for Configurações tab here -->
+      </div>
+    </div>
+    <div class="tab-content" id="relatorios-tab" style="display: none;">
+      <div class="tab-content-padded">
+        <h1>Relatórios</h1>
+        <!-- Add content for Relatórios tab here -->
+      </div>
+    </div>
+    <div class="tab-content" id="suporte-tab" style="display: none;">
+      <div class="tab-content-padded">
+        <h1>Suporte</h1>
+        <!-- Add content for Suporte tab here -->
+      </div>
+    </div>
+  </div>
+  <div id="loading-overlay">
+    <div id="loading-heart"></div>
+  </div>
+  <div id="tabs">
+    <button class="tab-button active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i></button>
+    <button class="tab-button" data-tab="usuarios"><i class="fas fa-users"></i></button>
+    <button class="tab-button" data-tab="configuracoes"><i class="fas fa-cogs"></i></button>
+    <button class="tab-button" data-tab="relatorios"><i class="fas fa-chart-line"></i></button>
+    <button class="tab-button" data-tab="suporte"><i class="fas fa-life-ring"></i></button>
+  </div>
+</body>
+</html>
