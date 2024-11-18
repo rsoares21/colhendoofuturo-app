@@ -33,6 +33,15 @@
     <div class="tab-content" id="home-tab">
       <div class="tab-content-padded">
         <h1>Bem vindo!</h1>
+        <div id="lettuce-progress">
+          <h2>Progresso das Mudas de Alface</h2>
+          <p>Existem <strong>100 mudas de alface</strong> crescendo. Após o plantio, em aproximadamente <strong>30 dias</strong>, essas mudas estarão disponíveis para colheita.</p>
+          <p>ID da Colheita: <strong id="batch-id">ALF-2023-001</strong></p> <!-- Add batch identifier -->
+          <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+          </div>
+          <p id="days-left">Dias restantes: <span>30</span></p>
+        </div>
         <canvas id="coletaChart" width="400" height="200"></canvas> <!-- Add canvas for coleta chart -->
         <canvas id="poluicaoChart" width="400" height="200"></canvas> <!-- Add canvas for poluicao chart -->
       </div>
@@ -40,19 +49,11 @@
     <div class="tab-content" id="buscar-tab" style="display: none;">
       <div class="tab-content-padded">
         <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <h1>Buscar Produtos da Horta</h1>
-        <br><br><br><br><br>
-        <!-- Add content for Buscar tab here -->
+        <div id="apply-seedling">
+          <h2>Candidate-se para Receber uma Muda de Alface</h2>
+          <p>ID da Colheita: <strong id="batch-id">ALF-2023-001</strong></p> <!-- Display batch identifier -->
+          <button id="apply-btn">Candidatar-se</button>
+        </div>
       </div>
     </div>
     <div class="tab-content" id="coleta-tab" style="display: none;">

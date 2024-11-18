@@ -146,6 +146,27 @@ document.addEventListener('DOMContentLoaded', async function() {
     renderCharts(); // Render charts on initial load
   }, 10); // Add a small delay to trigger the transition
 
+  const plantingDate = new Date('2024-11-01');
+  const harvestDate = new Date('2024-12-01');
+  const totalDays = (harvestDate - plantingDate) / (1000 * 60 * 60 * 24);
+
+  function updateLettuceProgress() {
+    const currentDate = new Date();
+    const daysPassed = (currentDate - plantingDate) / (1000 * 60 * 60 * 24);
+    const daysLeft = totalDays - daysPassed;
+    const progressPercentage = (daysPassed / totalDays) * 100;
+
+    const progressBar = document.getElementById('progress-bar');
+    const daysLeftElement = document.getElementById('days-left').querySelector('span');
+
+    progressBar.style.width = `${progressPercentage}%`;
+    daysLeftElement.textContent = Math.max(0, Math.ceil(daysLeft));
+  }
+
+  // Update the progress bar initially and then every day
+  updateLettuceProgress();
+  setInterval(updateLettuceProgress, 24 * 60 * 60 * 1000); // Update every day
+
   // Function to fetch and display user information
   async function fetchUserInfo(userId) {
     try {
@@ -236,4 +257,13 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
     });
   }
+
+  const batchId = 'ALF-2023-001'; // Define the batch identifier
+  document.getElementById('batch-id').textContent = batchId;
+
+  const applyBtn = document.getElementById('apply-btn');
+  applyBtn.addEventListener('click', function() {
+    alert(`Você se candidatou para receber uma muda de alface da colheita ${batchId}.`);
+    // Add additional logic to handle the application process
+  });
 });
