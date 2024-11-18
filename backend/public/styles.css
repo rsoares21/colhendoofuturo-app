@@ -4,6 +4,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap'); /* Add a ticker-like font */
 
+html, body {
+  height: 100%; /* Ensure the body and html take the full height */
+  overflow: hidden; /* Prevent any scrolling */
+}
+
 body {
   font-family: 'Paytone One', sans-serif;
   margin: 0; /* Remove margin to prevent overflow */
