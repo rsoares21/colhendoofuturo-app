@@ -20,32 +20,32 @@
   <img id="floating-image" src="coracao-low.png" alt="Floating Image">
   <div id="sidebar">
     <a href="home.html">Início</a> <!-- Link to return to home area -->
-    <a href="#" data-tab="dashboard">Dashboard</a>
     <a href="#" data-tab="usuarios">Usuários</a>
-    <a href="#" data-tab="configuracoes">Configurações</a>
+    <a href="#" data-tab="residuos">Resíduos</a>
+    <a href="#" data-tab="produtos-pedidos">Produtos e Pedidos</a>
     <a href="#" data-tab="relatorios">Relatórios</a>
-    <a href="#" data-tab="suporte">Suporte</a>
+    <a href="#" data-tab="configuracoes">Configurações</a>
     <div id="logout-container">
       <a href="#" id="logout-btn">Sair</a>
     </div>
   </div>
   <div id="tab-content">
-    <div class="tab-content" id="dashboard-tab">
-      <div class="tab-content-padded">
-        <h1>Dashboard</h1>
-        <!-- Add content for Dashboard tab here -->
-      </div>
-    </div>
-    <div class="tab-content" id="usuarios-tab" style="display: none;">
+    <div class="tab-content" id="usuarios-tab">
       <div class="tab-content-padded">
         <h1>Gerenciar Usuários</h1>
         <!-- Add content for Usuários tab here -->
       </div>
     </div>
-    <div class="tab-content" id="configuracoes-tab" style="display: none;">
+    <div class="tab-content" id="residuos-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Configurações</h1>
-        <!-- Add content for Configurações tab here -->
+        <h1>Gerenciar Resíduos</h1>
+        <!-- Add content for Resíduos tab here -->
+      </div>
+    </div>
+    <div class="tab-content" id="produtos-pedidos-tab" style="display: none;">
+      <div class="tab-content-padded">
+        <h1>Gerenciar Produtos e Pedidos</h1>
+        <!-- Add content for Produtos e Pedidos tab here -->
       </div>
     </div>
     <div class="tab-content" id="relatorios-tab" style="display: none;">
@@ -54,10 +54,10 @@
         <!-- Add content for Relatórios tab here -->
       </div>
     </div>
-    <div class="tab-content" id="suporte-tab" style="display: none;">
+    <div class="tab-content" id="configuracoes-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Suporte</h1>
-        <!-- Add content for Suporte tab here -->
+        <h1>Configurações</h1>
+        <!-- Add content for Configurações tab here -->
       </div>
     </div>
   </div>
@@ -65,11 +65,11 @@
     <div id="loading-heart"></div>
   </div>
   <div id="tabs">
-    <button class="tab-button active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i></button>
-    <button class="tab-button" data-tab="usuarios"><i class="fas fa-users"></i></button>
-    <button class="tab-button" data-tab="configuracoes"><i class="fas fa-cogs"></i></button>
+    <button class="tab-button active" data-tab="usuarios"><i class="fas fa-users"></i></button>
+    <button class="tab-button" data-tab="residuos"><i class="fas fa-recycle"></i></button>
+    <button class="tab-button" data-tab="produtos-pedidos"><i class="fas fa-box"></i></button>
     <button class="tab-button" data-tab="relatorios"><i class="fas fa-chart-line"></i></button>
-    <button class="tab-button" data-tab="suporte"><i class="fas fa-life-ring"></i></button>
+    <button class="tab-button" data-tab="configuracoes"><i class="fas fa-cogs"></i></button>
   </div>
 </body>
 </html>

@@ -86,11 +86,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
   });
 
-  // Show dashboard tab content by default
-  document.getElementById('dashboard-tab').style.display = 'block';
+  // Show the first tab content by default
+  const firstTabButton = tabButtons[0];
+  const firstTab = firstTabButton.getAttribute('data-tab');
+  document.getElementById(`${firstTab}-tab`).style.display = 'block';
   setTimeout(() => {
-    document.getElementById('dashboard-tab').classList.add('active');
-    document.getElementById('dashboard-tab').scrollTo(0, 0); // Scroll to the top of the content
-    window.scrollTo({ top: document.getElementById('dashboard-tab').offsetTop - 70, behavior: 'smooth' }); // Adjust for the top bar height
+    document.getElementById(`${firstTab}-tab`).classList.add('active');
+    document.getElementById(`${firstTab}-tab`).scrollTo(0, 0); // Scroll to the top of the content
+    window.scrollTo({ top: document.getElementById(`${firstTab}-tab`).offsetTop - 70, behavior: 'smooth' }); // Adjust for the top bar height
   }, 10); // Add a small delay to trigger the transition
 });
