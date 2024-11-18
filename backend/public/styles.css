@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap'); /* Add a ticker-like font */
 
 body {
   font-family: 'Paytone One', sans-serif;
@@ -295,6 +296,53 @@ a {
   font-size: 10px; /* Keep font size */
   color: #f3e2b8; /* Set font color to gold */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+}
+
+#bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px; /* Set height to 30px */
+  background-color: #60752d; /* Set background color to olive */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Paytone One", sans-serif; /* Use a more suitable font */
+  font-weight: 400;
+  font-style: normal;
+  font-size: 10px; /* Keep font size */
+  color: #f3e2b8; /* Set font color to gold */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+  overflow: hidden; /* Prevent overflow */
+}
+
+#news-ticker {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  font-family: 'VT323', monospace; /* Use the ticker-like font */
+  font-size: 16px;
+}
+
+#news-ticker p {
+  display: inline-block;
+  animation: ticker 40s linear infinite; /* Adjust the duration to 40s */
+  animation-delay: 0s; /* Start immediately */
+}
+
+#news-ticker p span {
+  color: #f66d87; /* Color only the numbers */
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 #logout-btn-conta {
