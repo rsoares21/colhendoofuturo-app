@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     sidebar.classList.remove('visible'); // Collapse sidebar immediately
     setTimeout(() => {
       tabButtons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.tab-button[data-tab="${tab}"]`).classList.add('active');
       tabContents.forEach(content => {
         if (content.id === `${tab}-tab`) {
           content.style.display = 'block'; // Ensure the content is displayed
