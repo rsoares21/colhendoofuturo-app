@@ -45,6 +45,43 @@ body.home {
   color: #60752d; /* Change text color to olive */
 }
 
+#coleta-container, #user-info-container, #search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 20px auto; /* Center the component horizontally */
+  color: #60752d;
+}
+
+#coleta-container input, #coleta-container button,
+#user-info-container button,
+#search-container input, #search-container button {
+  width: calc(100% - 40px); /* Adjust width to fit within the component's padding */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Paytone One', sans-serif;
+}
+
+#coleta-container button, #user-info-container button, #search-container button {
+  background-color: #f66d87;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#coleta-container button:hover, #user-info-container button:hover, #search-container button:hover {
+  background-color: #e55c7a;
+}
+
 form {
   width: 100%;
   padding: 0 10px; /* Add padding to create space inside the form */
@@ -420,4 +457,71 @@ a {
 
 #apply-seedling button:hover {
   background-color: #45a049;
+}
+
+#user-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 20px auto; /* Center the component horizontally */
+  color: #60752d;
+}
+
+#user-info-container button {
+  background-color: #f66d87;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+#user-info-container button:hover {
+  background-color: #e55c7a;
+}
+
+#search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 20px auto; /* Center the component horizontally */
+  color: #60752d;
+}
+
+#search-container input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Paytone One', sans-serif;
+}
+
+#search-container button {
+  background-color: #f66d87;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+#search-container button:hover {
+  background-color: #e55c7a;
 }

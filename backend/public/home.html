@@ -54,19 +54,13 @@
     </div>
     <div class="tab-content" id="coleta-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Agendar Coleta de Resíduos</h1>
-        <!-- Add content for Coleta tab here -->
+        <div id="coleta-component"></div>
       </div>
     </div>
     <div class="tab-content" id="conta-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Informações da Conta</h1>
-        <div id="user-info">
-          <!-- User information will be displayed here -->
-        </div>
-        <button id="logout-btn-conta">Sair</button> <!-- Add logout button -->
+        <div id="user-info-component"></div>
       </div>
-      <!-- Add content for Conta tab here -->
     </div>
     <div class="tab-content" id="administracao-tab" style="display: none;">
       <div class="tab-content-padded">
@@ -91,6 +85,20 @@
       .then(response => response.text())
       .then(data => {
         document.getElementById('search-component').innerHTML = data;
+      });
+
+    // Load the coleta component
+    fetch('coleta.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('coleta-component').innerHTML = data;
+      });
+
+    // Load the user info component
+    fetch('user-info.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('user-info-component').innerHTML = data;
       });
   </script>
 </body>
