@@ -49,11 +49,7 @@
     <div class="tab-content" id="buscar-tab" style="display: none;">
       <div class="tab-content-padded">
         <h1>Buscar Produtos da Horta</h1>
-        <div id="apply-seedling">
-          <h2>Candidate-se para Receber uma Muda de Alface</h2>
-          <p>ID da Colheita: <strong id="batch-id">ALF-2023-001</strong></p> <!-- Display batch identifier -->
-          <button id="apply-btn">Candidatar-se</button>
-        </div>
+        <div id="search-component"></div>
       </div>
     </div>
     <div class="tab-content" id="coleta-tab" style="display: none;">
@@ -89,5 +85,13 @@
     <button class="tab-button" data-tab="coleta"><i class="fas fa-calendar-alt"></i></button>
     <button class="tab-button" data-tab="conta"><i class="fas fa-user"></i></button>
   </div>
+  <script>
+    // Load the search component
+    fetch('busca.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('search-component').innerHTML = data;
+      });
+  </script>
 </body>
 </html>
