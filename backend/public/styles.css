@@ -5,7 +5,7 @@
 
 body {
   font-family: 'Paytone One', sans-serif;
-  margin: 10;
+  margin: 0; /* Remove margin to prevent overflow */
   padding: 0;
   background-color: #f4f4f9;
   display: flex;
@@ -16,6 +16,7 @@ body {
   background-size: cover;
   background-position: center;
   flex-direction: column; /* Ensure proper alignment on mobile devices */
+  overflow: hidden; /* Prevent any scrolling */
 }
 
 body.home {
@@ -33,7 +34,6 @@ body.home {
   padding: 20px;
   background: rgba(255, 255, 255, 0.7); /* Make the background slightly transparent */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
   text-align: center;
   margin: 20px; /* Add margin to create space on the sides */
   color: #60752d; /* Change text color to olive */
@@ -50,7 +50,6 @@ input, button {
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 5px;
   font-size: 16px;
   font-family: 'Paytone One', sans-serif; /* Use the Roboto font for inputs and buttons */
 }
