@@ -32,32 +32,27 @@
   <div id="tab-content">
     <div class="tab-content" id="usuarios-tab">
       <div class="tab-content-padded">
-        <h1>Gerenciar Usuários</h1>
-        <!-- Add content for Usuários tab here -->
+        <div id="usuarios-component"></div>
       </div>
     </div>
     <div class="tab-content" id="residuos-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Gerenciar Resíduos</h1>
-        <!-- Add content for Resíduos tab here -->
+        <div id="residuos-component"></div>
       </div>
     </div>
     <div class="tab-content" id="produtos-pedidos-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Gerenciar Produtos e Pedidos</h1>
-        <!-- Add content for Produtos e Pedidos tab here -->
+        <div id="produtos-pedidos-component"></div>
       </div>
     </div>
     <div class="tab-content" id="relatorios-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Relatórios</h1>
-        <!-- Add content for Relatórios tab here -->
+        <div id="relatorios-component"></div>
       </div>
     </div>
     <div class="tab-content" id="configuracoes-tab" style="display: none;">
       <div class="tab-content-padded">
-        <h1>Configurações</h1>
-        <!-- Add content for Configurações tab here -->
+        <div id="configuracoes-component"></div>
       </div>
     </div>
   </div>
@@ -71,5 +66,41 @@
     <button class="tab-button" data-tab="relatorios"><i class="fas fa-chart-line"></i></button>
     <button class="tab-button" data-tab="configuracoes"><i class="fas fa-cogs"></i></button>
   </div>
+  <script>
+    // Load the usuarios component
+    fetch('usuarios.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('usuarios-component').innerHTML = data;
+      });
+
+    // Load the residuos component
+    fetch('residuos.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('residuos-component').innerHTML = data;
+      });
+
+    // Load the produtos-pedidos component
+    fetch('produtos-pedidos.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('produtos-pedidos-component').innerHTML = data;
+      });
+
+    // Load the relatorios component
+    fetch('relatorios.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('relatorios-component').innerHTML = data;
+      });
+
+    // Load the configuracoes component
+    fetch('configuracoes.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('configuracoes-component').innerHTML = data;
+      });
+  </script>
 </body>
 </html>
