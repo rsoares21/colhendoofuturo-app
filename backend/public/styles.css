@@ -193,6 +193,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 15%; /* Add rounded borders */
 }
 
 #menu-btn:hover {
