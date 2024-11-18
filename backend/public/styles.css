@@ -154,6 +154,24 @@ a {
   background-color: rgba(96, 117, 45, 0.8); /* Change hover background color to improve visibility */
 }
 
+#logout-container {
+  margin-top: auto; /* Push the logout button to the bottom */
+  width: 100%;
+  text-align: center;
+  padding-bottom: 110px; /* Add padding to the bottom to avoid overlap with tabs */
+}
+
+#logout-container a {
+  color: #f3e2b8; /* Ensure the logout link color matches the sidebar links */
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+}
+
+#logout-container a:hover {
+  background-color: rgba(96, 117, 45, 0.8); /* Change hover background color to improve visibility */
+}
+
 #menu-btn {
   position: fixed;
   top: 5px;

@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     if (response.ok) {
       console.log('Token válido:', result.decoded);
+      // Fetch and display user information immediately
+      fetchUserInfo(result.decoded.userId);
     } else {
       console.error('Token inválido:', result.message);
       localStorage.removeItem('token');
@@ -130,9 +132,9 @@ document.addEventListener('DOMContentLoaded', async function() {
   }, 10); // Add a small delay to trigger the transition
 
   // Function to fetch and display user information
-  async function fetchUserInfo() {
+  async function fetchUserInfo(userId) {
     try {
-      const response = await fetch('/profile', {
+      const response = await fetch(`/profile?userId=${userId}`, {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${token}` },
       });
@@ -146,6 +148,16 @@ document.addEventListener('DOMContentLoaded', async function() {
           <p>Verificado: ${result.user.verified ? 'Sim' : 'Não'}</p>
           <p>Roles: ${result.user.roles.join(', ')}</p> <!-- Display user roles -->
         `;
+
+        // Display "Administração" link if user has "ADMIN" role
+        if (result.user.roles.includes('ADMIN') && !document.getElementById('admin-link')) {
+          const adminLink = document.createElement('a');
+          adminLink.id = 'admin-link';
+          adminLink.href = '#';
+          adminLink.textContent = 'Administração';
+          const logoutContainer = document.getElementById('logout-container');
+          sidebar.insertBefore(adminLink, logoutContainer); // Insert above the logout container
+        }
       } else {
         console.error('Erro ao buscar informações do usuário:', result.message);
       }
