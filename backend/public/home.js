@@ -71,6 +71,9 @@ document.addEventListener('DOMContentLoaded', async function() {
   const tabContents = document.querySelectorAll('.tab-content');
   const floatingImage = document.getElementById('floating-image');
 
+  let coletaChart;
+  let poluicaoChart;
+
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
       const tab = button.getAttribute('data-tab');
@@ -87,6 +90,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             // Fetch and display user information if the "Informações da Conta" tab is selected
             if (tab === 'conta') {
               fetchUserInfo();
+            }
+
+            // Render charts if the "Home" tab is selected
+            if (tab === 'home') {
+              renderCharts();
             }
           }, 10); // Add a small delay to trigger the transition
         } else {
@@ -118,6 +126,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('home-tab').classList.add('active');
     document.getElementById('home-tab').scrollTo(0, 0); // Scroll to the top of the content
     window.scrollTo({ top: document.getElementById('home-tab').offsetTop - 70, behavior: 'smooth' }); // Adjust for the top bar height
+    renderCharts(); // Render charts on initial load
   }, 10); // Add a small delay to trigger the transition
 
   // Function to fetch and display user information
@@ -143,5 +152,66 @@ document.addEventListener('DOMContentLoaded', async function() {
     } catch (error) {
       console.error('Erro ao buscar informações do usuário:', error);
     }
+  }
+
+  // Function to render charts
+  function renderCharts() {
+    const coletaCtx = document.getElementById('coletaChart').getContext('2d');
+    const poluicaoCtx = document.getElementById('poluicaoChart').getContext('2d');
+
+    // Destroy existing charts if they exist
+    if (coletaChart) {
+      coletaChart.destroy();
+    }
+    if (poluicaoChart) {
+      poluicaoChart.destroy();
+    }
+
+    // Example data for charts
+    const coletaData = {
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+      datasets: [{
+        label: 'Coleta de Resíduos (kg)',
+        data: [30, 45, 60, 50, 70, 80],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    const poluicaoData = {
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+      datasets: [{
+        label: 'Poluição Evitada (kg CO2)',
+        data: [20, 35, 50, 40, 60, 70],
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    coletaChart = new Chart(coletaCtx, {
+      type: 'bar',
+      data: coletaData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    poluicaoChart = new Chart(poluicaoCtx, {
+      type: 'line',
+      data: poluicaoData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
 });

@@ -6,6 +6,7 @@
   <title>Home - Colhendo o Futuro</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Add Chart.js library -->
   <script src="home.js"></script>
 </head>
 <body class="home">
@@ -28,6 +29,8 @@
     <div class="tab-content" id="home-tab">
       <div class="tab-content-padded">
         <h1>Bem vindo!</h1>
+        <canvas id="coletaChart" width="400" height="200"></canvas> <!-- Add canvas for coleta chart -->
+        <canvas id="poluicaoChart" width="400" height="200"></canvas> <!-- Add canvas for poluicao chart -->
       </div>
     </div>
     <div class="tab-content" id="buscar-tab" style="display: none;">

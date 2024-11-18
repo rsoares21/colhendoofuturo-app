@@ -126,8 +126,8 @@ a {
   left: 0;
   width: 250px;
   height: 100%;
-  background-color: #333;
-  color: #fff;
+  background-color: rgba(246, 109, 135, 0.99); /* Make the sidebar background slightly more opaque */
+  color: #f3e2b8; /* Change text color to improve readability */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,7 +142,7 @@ a {
 }
 
 #sidebar a {
-  color: #fff;
+  color: #f3e2b8; /* Change link color to improve readability */
   text-decoration: none;
   padding: 10px 20px;
   width: 100%;
@@ -151,15 +151,15 @@ a {
 }
 
 #sidebar a:hover {
-  background-color: #575757;
+  background-color: rgba(96, 117, 45, 0.8); /* Change hover background color to improve visibility */
 }
 
 #menu-btn {
   position: fixed;
   top: 5px;
   left: 10px;
-  background-color: #4CAF50;
-  color: #fff;
+  background-color: #f3e2b8;
+  color: #60752d;
   border: none;
   padding: 10px;
   cursor: pointer;
@@ -172,7 +172,7 @@ a {
 }
 
 #menu-btn:hover {
-  background-color: #45a049;
+  background-color: #f3e2b8;
 }
 
 #menu-btn svg {
