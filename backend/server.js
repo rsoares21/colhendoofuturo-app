@@ -62,7 +62,7 @@ app.post('/register', async (req, res) => {
     await newUser.save();
     console.log("Usuário salvo com sucesso!");
     // Envio do e-mail de verificação
-    const verificationLink = `${process.env.BASE_URL}/verify-email/${newUser._id}`;
+    const verificationLink = `${process.env.API_BASE_URL}/verify-email/${newUser._id}`;
     const mailOptions = {
       from: process.env.SMTP_USER,
       to: email,
@@ -199,7 +199,7 @@ app.post('/resend-verification-email', async (req, res) => {
       }
   
       // Enviar o e-mail de verificação (aqui você pode usar sua lógica de envio)
-      const verificationUrl = `${process.env.BASE_URL}/verify-email/${newUser._id}`;
+      const verificationUrl = `${process.env.API_BASE_URL}/verify-email/${newUser._id}`;
   
       const mailOptions = {
         from: process.env.SMTP_USER,
