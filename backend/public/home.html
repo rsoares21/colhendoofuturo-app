@@ -35,12 +35,18 @@
         <h1>Bem vindo!</h1>
         <div id="lettuce-progress">
           <h2>Progresso das Mudas de Alface</h2>
-          <p>Existem <strong>100 mudas de alface</strong> crescendo. Após o plantio, em aproximadamente <strong>30 dias</strong>, essas mudas estarão disponíveis para colheita.</p>
-          <p>ID da Colheita: <strong id="batch-id">ALF-2023-001</strong></p> <!-- Add batch identifier -->
-          <div id="progress-bar-container">
-            <div id="progress-bar"></div>
+          <div class="lettuce-card">
+            <img src="https://hortainhome.com.br/wp-content/uploads/2020/05/alface_lisa.jpg" alt="Lettuce Thumbnail" class="lettuce-thumb">
+            <div class="lettuce-info">
+              <p>ID Colheita: <strong id="batch-id" style="font-size: 10px;">ALF-2023-001</strong></p> <!-- Add batch identifier -->
+              <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+              </div>
+              <p id="days-left">Dias restantes: <span>30</span></p>
+              <p class="date-info left">Plantio: <strong id="planting-date" style="font-size: 10px;">01/01/2023</strong></p> <!-- Add planting date -->
+              <p class="date-info right">Colheita Prevista: <strong id="harvest-date" style="font-size: 10px;">31/01/2023</strong></p> <!-- Add expected harvest date -->
+            </div>
           </div>
-          <p id="days-left">Dias restantes: <span>30</span></p>
         </div>
         <canvas id="coletaChart" width="400" height="200"></canvas> <!-- Add canvas for coleta chart -->
         <canvas id="poluicaoChart" width="400" height="200"></canvas> <!-- Add canvas for poluicao chart -->

@@ -525,3 +525,40 @@ a {
 #search-container button:hover {
   background-color: #e55c7a;
 }
+
+.lettuce-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  position: relative; /* Add relative positioning */
+}
+
+.lettuce-thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.lettuce-info {
+  flex: 1;
+}
+
+.date-info {
+  font-size: 10px;
+  position: absolute;
+  bottom: 10px; /* Position at the bottom of the card */
+}
+
+.date-info.left {
+  left: 20px; /* Align with the left padding */
+}
+
+.date-info.right {
+  right: 20px; /* Align with the right padding */
+}
