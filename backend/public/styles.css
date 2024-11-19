@@ -531,10 +531,11 @@ a {
   align-items: center;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 0px 20px 20px 20px; /* Reduce top padding */
+  padding: 20px; /* Adjust padding */
   margin: 10px 0; /* Reduce margin to create more space for a list of cards */
   border-radius: 10px;
   position: relative; /* Add relative positioning */
+  min-height: 120px; /* Ensure enough height to avoid overlap */
 }
 
 .lettuce-thumb {
@@ -543,10 +544,7 @@ a {
   object-fit: cover;
   border-radius: 10px;
   margin-right: 20px;
-}
-
-.lettuce-info {
-  flex: 1;
+  margin-bottom: 20px;;
 }
 
 .date-info {
@@ -557,10 +555,10 @@ a {
 
 .date-info.left {
   left: 20px; /* Align with the left padding */
-  color:#4CAF50;
+  color: #4CAF50;
 }
 
 .date-info.right {
   right: 20px; /* Align with the right padding */
-  color: #f66d87; /* Change color to gray */
+  color: #e55c7a; /* Change color to gray */
 }

@@ -100,7 +100,7 @@
           card.innerHTML = `
             <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="lettuce-thumb">
             <div class="lettuce-info">
-              <p>ID Colheita: <strong style="font-size: 10px;">${plantio._id}</strong></p>
+              <p><strong>${plantio.tipo}</strong></p> <!-- Add plant type -->
               <div id="progress-bar-container">
                 <div id="progress-bar-${plantio._id}" style="width: 0; height: 20px; background-color: #4CAF50; border-radius: 25px; transition: width 0.5s ease-in-out;"></div>
               </div>
