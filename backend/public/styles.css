@@ -414,7 +414,7 @@ a {
   background-color: #f66d87;
 }
 
-#lettuce-progress {
+#plant-progress {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -526,7 +526,7 @@ a {
   background-color: #e55c7a;
 }
 
-.lettuce-card {
+.plant-card {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.7);
@@ -538,13 +538,13 @@ a {
   min-height: 120px; /* Ensure enough height to avoid overlap */
 }
 
-.lettuce-thumb {
+.plant-thumb {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 10px;
   margin-right: 20px;
-  margin-bottom: 20px;;
+  margin-bottom: 20px;
 }
 
 .date-info {
@@ -560,5 +560,5 @@ a {
 
 .date-info.right {
   right: 20px; /* Align with the right padding */
-  color: #e55c7a; /* Change color to gray */
+  color: gray; /* Change color to gray */
 }

@@ -34,7 +34,7 @@
       <div class="tab-content-padded">
         <h1>Bem vindo!</h1>
         <h3>Progresso das Mudas</h3>
-        <div id="lettuce-progress">
+        <div id="plant-progress">
           <!-- Cards will be dynamically generated here -->
         </div>
         <canvas id="coletaChart" width="400" height="200"></canvas> <!-- Add canvas for coleta chart -->
@@ -93,13 +93,13 @@
     fetch('/api/plantios')
       .then(response => response.json())
       .then(plantios => {
-        const lettuceProgress = document.getElementById('lettuce-progress');
+        const plantProgress = document.getElementById('plant-progress');
         plantios.forEach(plantio => {
           const card = document.createElement('div');
-          card.className = 'lettuce-card';
+          card.className = 'plant-card';
           card.innerHTML = `
-            <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="lettuce-thumb">
-            <div class="lettuce-info">
+            <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="plant-thumb">
+            <div class="plant-info">
               <p><strong>${plantio.tipo}</strong></p> <!-- Add plant type -->
               <div id="progress-bar-container">
                 <div id="progress-bar-${plantio._id}" style="width: 0; height: 20px; background-color: #4CAF50; border-radius: 25px; transition: width 0.5s ease-in-out;"></div>
@@ -109,7 +109,7 @@
               <p class="date-info right">Colheita Prevista: <strong style="font-size: 10px;">${new Date(plantio.dataColheita).toLocaleDateString()}</strong></p>
             </div>
           `;
-          lettuceProgress.appendChild(card);
+          plantProgress.appendChild(card);
           updateProgressBar(plantio._id, plantio.dataPlantio, plantio.dataColheita);
         });
       });
