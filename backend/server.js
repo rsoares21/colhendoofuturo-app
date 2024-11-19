@@ -13,6 +13,7 @@ const app = express();
 
 // Importar o modelo de usuário
 const User = require('./models/User'); // Agora importamos o modelo de usuário
+const Plantio = require('./models/plantio'); // Import the Plantio model
 
 // Middleware para servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -235,6 +236,17 @@ app.post('/validate-token', (req, res) => {
     }
     res.status(200).json({ message: 'Token válido.', decoded });
   });
+});
+
+// Rota para buscar dados dos plantios
+app.get('/api/plantios', async (req, res) => {
+  try {
+    const plantios = await Plantio.find();
+    res.status(200).json(plantios);
+  } catch (error) {
+    console.error('Erro ao buscar plantios:', error);
+    res.status(500).json({ message: 'Erro ao buscar plantios.' });
+  }
 });
 
 // Rota para servir a página protegida
