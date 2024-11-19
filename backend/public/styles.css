@@ -531,7 +531,7 @@ a {
   align-items: center;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 10px 20px 20px 20px; /* Reduce top padding */
+  padding: 0px 20px 20px 20px; /* Reduce top padding */
   margin: 10px 0; /* Reduce margin to create more space for a list of cards */
   border-radius: 10px;
   position: relative; /* Add relative positioning */
@@ -557,8 +557,10 @@ a {
 
 .date-info.left {
   left: 20px; /* Align with the left padding */
+  color:#4CAF50;
 }
 
 .date-info.right {
   right: 20px; /* Align with the right padding */
+  color: #f66d87; /* Change color to gray */
 }
