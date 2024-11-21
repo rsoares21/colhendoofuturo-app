@@ -69,6 +69,14 @@
     <button class="tab-button" data-tab="coleta"><i class="fas fa-calendar-alt"></i></button>
     <button class="tab-button" data-tab="conta"><i class="fas fa-user"></i></button>
   </div>
+  <div id="plantio-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modal-title">Detalhes do Plantio</h2>
+      <p id="modal-body">Informações detalhadas do plantio serão exibidas aqui.</p>
+      <button id="add-to-bag-btn">Adicionar à Sacola</button>
+    </div>
+  </div>
   <script>
     // Load the search component
     fetch('busca.html')
@@ -111,6 +119,7 @@
               <p class="date-info right">Colheita Prevista: <strong style="font-size: 10px;">${new Date(plantio.dataColheita).toLocaleDateString()}</strong></p>
             </div>
           `;
+          card.addEventListener('click', () => openModal(plantio)); // Add click event to open modal
           plantProgress.appendChild(card);
           updateProgressBar(plantio._id, plantio.dataPlantio, plantio.dataColheita);
         });
@@ -128,6 +137,64 @@
       document.getElementById(`progress-bar-${id}`).style.width = `${progress}%`;
       document.getElementById(`days-left-${id}`).innerText = `Dias restantes: ${Math.ceil(daysLeft)}`;
     }
+
+    // Function to open the modal with plantio details
+    function openModal(plantio) {
+      const modal = document.getElementById('plantio-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalBody = document.getElementById('modal-body');
+      const addToBagBtn = document.getElementById('add-to-bag-btn');
+
+      modalTitle.innerText = `Detalhes do Plantio: ${plantio.tipo}`;
+      modalBody.innerHTML = `
+        <p><strong>Tipo:</strong> ${plantio.tipo}</p>
+        <p><strong>Data de Plantio:</strong> ${new Date(plantio.dataPlantio).toLocaleDateString()}</p>
+        <p><strong>Data de Colheita:</strong> ${new Date(plantio.dataColheita).toLocaleDateString()}</p>
+        <p><strong>Dias Restantes:</strong> ${plantio.daysLeft}</p>
+        <p><strong>Créditos Necessários:</strong> ${plantio.requiredCredits}</p>
+        <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="modal-thumb">
+      `;
+
+      addToBagBtn.onclick = () => addToBag(plantio._id);
+
+      modal.style.display = 'block';
+    }
+
+    // Function to add the product to the user's bag
+    function addToBag(plantioId) {
+      fetch('/api/add-to-bag', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plantioId }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Produto adicionado à sacola com sucesso!');
+          document.getElementById('plantio-modal').style.display = 'none';
+          // Update UI elements as needed
+        } else {
+          alert('Erro ao adicionar o produto à sacola: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao adicionar o produto à sacola:', error);
+        alert('Erro ao adicionar o produto à sacola.');
+      });
+    }
+
+    // Close the modal when the close button is clicked
+    document.querySelector('.close-btn').addEventListener('click', () => {
+      document.getElementById('plantio-modal').style.display = 'none';
+    });
+
+    // Close the modal when clicking outside of the modal content
+    window.addEventListener('click', (event) => {
+      const modal = document.getElementById('plantio-modal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
