@@ -249,6 +249,34 @@ app.get('/api/plantios', async (req, res) => {
   }
 });
 
+// Rota para resgatar um produto
+app.post('/redeem', authenticateToken, async (req, res) => {
+  const { plantioId } = req.body;
+  const userId = req.user.userId;
+
+  try {
+    const user = await User.findById(userId);
+    const plantio = await Plantio.findById(plantioId);
+
+    if (!user || !plantio) {
+      return res.status(404).json({ message: 'Usuário ou plantio não encontrado.' });
+    }
+
+    if (user.credits < plantio.requiredCredits) {
+      return res.status(400).json({ message: 'Créditos insuficientes para resgatar este produto.' });
+    }
+
+    // Deduzir os créditos do usuário
+    user.credits -= plantio.requiredCredits;
+    await user.save();
+
+    res.status(200).json({ message: 'Produto resgatado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao resgatar produto:', error);
+    res.status(500).json({ message: 'Erro ao resgatar produto.' });
+  }
+});
+
 // Rota para servir a página protegida
 app.get('/home.html', authenticateToken, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'home.html'));

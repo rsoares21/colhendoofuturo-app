@@ -37,8 +37,10 @@
         <div id="plant-progress">
           <!-- Cards will be dynamically generated here -->
         </div>
+        <h3>Relatório Coleta de Resíduos</h3>
         <canvas id="coletaChart" width="400" height="200"></canvas> <!-- Add canvas for coleta chart -->
         <canvas id="poluicaoChart" width="400" height="200"></canvas> <!-- Add canvas for poluicao chart -->
+        <br><br><br><br><br><br>
       </div>
     </div>
     <div class="tab-content" id="buscar-tab" style="display: none;">
@@ -100,8 +102,8 @@
           card.innerHTML = `
             <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="plant-thumb">
             <div class="plant-info">
-              <p><strong>${plantio.tipo}</strong></p> <!-- Add plant type -->
-              <div id="progress-bar-container">
+              <p><strong>${plantio.tipo}</strong> &nbsp;<span style="font-size: 14px; color: #60752d;">(${plantio.requiredCredits} créditos)</span></p> <!-- Add plant type and required credits -->
+              <div id="progress-bar-container" style="flex-grow: 1; margin: 10px 0; display: flex; align-items: center;">
                 <div id="progress-bar-${plantio._id}" style="width: 0; height: 20px; background-color: #4CAF50; border-radius: 25px; transition: width 0.5s ease-in-out;"></div>
               </div>
               <p id="days-left-${plantio._id}" style="font-size: 16px; color: #60752d;">Dias restantes: <span>${plantio.daysLeft}</span></p>

@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
   roles: {
     type: [String],
     default: ['USER'], // Define a role padrão como "USER"
+  },
+  credits: {
+    type: Number,
+    default: 10, // Initialize with 10 credits
   }
 }, { timestamps: true }); // Adiciona createdAt e updatedAt automaticamente
 
