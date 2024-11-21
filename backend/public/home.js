@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           <p>Email: ${result.user.email}</p>
           <p>Verificado: ${result.user.verified ? 'Sim' : 'Não'}</p>
           <p>Roles: ${result.user.roles.join(', ')}</p> <!-- Display user roles -->
+          <p>Créditos: ${result.user.credits}</p> <!-- Display user credits -->
         `;
 
         // Display "Administração" link if user has "ADMIN" role
