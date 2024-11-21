@@ -593,6 +593,12 @@ a {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  position: sticky; /* Keep the close button always visible */
+  top: 30px; /* Adjust top position to be more below */
+  right: 20px; /* Adjust right position */
+  background: white; /* Add background to ensure visibility */
+  padding: 10px;
+  z-index: 1001;
 }
 
 .close-btn:hover,
