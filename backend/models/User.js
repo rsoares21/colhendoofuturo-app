@@ -26,7 +26,15 @@ const userSchema = new mongoose.Schema({
   credits: {
     type: Number,
     default: 10, // Initialize with 10 credits
-  }
+  },
+  bag: [{
+    plantioId: { type: mongoose.Schema.Types.ObjectId, ref: 'Plantio' },
+    tipo: String,
+    dataPlantio: Date,
+    dataColheita: Date,
+    requiredCredits: Number,
+    quantity: { type: Number, default: 1 }
+  }]
 }, { timestamps: true }); // Adiciona createdAt e updatedAt automaticamente
 
 // Criando o modelo de usuário e especificando a coleção 'colhendoofuturo'

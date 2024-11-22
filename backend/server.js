@@ -113,7 +113,7 @@ app.post('/login', async (req, res) => {
 
   try {
     // Verifica se o usuário existe
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate('bag.plantioId');
 
     if (!user) {
       return res.status(400).json({ message: 'Credenciais inválidas!' });
@@ -138,8 +138,8 @@ app.post('/login', async (req, res) => {
       { expiresIn: '1h' } // O token vai expirar em 1 hora
     );
 
-    // Sucesso no login, retorna o token JWT
-    res.status(200).json({ message: 'Login bem-sucedido', token });
+    // Sucesso no login, retorna o token JWT e os dados do usuário
+    res.status(200).json({ message: 'Login bem-sucedido', token, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro interno no servidor.' });
@@ -165,7 +165,7 @@ const authenticateToken = (req, res, next) => {
 
 // Exemplo de uma rota protegida
 app.get('/profile', authenticateToken, async (req, res) => {
-  const user = await User.findById(req.user.userId);
+  const user = await User.findById(req.user.userId).populate('bag.plantioId');
   if (!user) {
     return res.status(404).json({ message: 'Usuário não encontrado.' });
   }
@@ -249,6 +249,20 @@ app.get('/api/plantios', async (req, res) => {
   }
 });
 
+// Rota para buscar um plantio específico por ID
+app.get('/api/plantios/:id', async (req, res) => {
+  try {
+    const plantio = await Plantio.findById(req.params.id);
+    if (!plantio) {
+      return res.status(404).json({ message: 'Plantio não encontrado.' });
+    }
+    res.status(200).json(plantio);
+  } catch (error) {
+    console.error('Erro ao buscar plantio:', error);
+    res.status(500).json({ message: 'Erro ao buscar plantio.' });
+  }
+});
+
 // Rota para resgatar um produto
 app.post('/redeem', authenticateToken, async (req, res) => {
   const { plantioId } = req.body;
@@ -274,6 +288,76 @@ app.post('/redeem', authenticateToken, async (req, res) => {
   } catch (error) {
     console.error('Erro ao resgatar produto:', error);
     res.status(500).json({ message: 'Erro ao resgatar produto.' });
+  }
+});
+
+// Rota para adicionar um produto à sacola do usuário
+app.post('/api/add-to-bag', authenticateToken, async (req, res) => {
+  const { plantioId } = req.body;
+  const userId = req.user.userId;
+
+  try {
+    const user = await User.findById(userId);
+    const plantio = await Plantio.findById(plantioId);
+
+    if (!user || !plantio) {
+      return res.status(404).json({ message: 'Usuário ou plantio não encontrado.' });
+    }
+
+    // Verificar se o plantio já está na sacola do usuário
+    const existingItem = user.bag.find(item => item.plantioId.toString() === plantioId);
+
+    if (existingItem) {
+      // Incrementar a quantidade se o plantio já estiver na sacola
+      existingItem.quantity += 1;
+    } else {
+      // Adicionar o plantio à sacola do usuário
+      user.bag.push({ plantioId: plantio._id, tipo: plantio.tipo, dataPlantio: plantio.dataPlantio, dataColheita: plantio.dataColheita, requiredCredits: plantio.requiredCredits, quantity: 1 });
+    }
+
+    await user.save();
+
+    // Fetch the updated user data
+    const updatedUser = await User.findById(userId);
+
+    res.status(200).json({ success: true, message: 'Produto adicionado à sacola com sucesso!', user: updatedUser });
+  } catch (error) {
+    console.error('Erro ao adicionar o produto à sacola:', error);
+    res.status(500).json({ success: false, message: 'Erro ao adicionar o produto à sacola.' });
+  }
+});
+
+// Rota para atualizar a quantidade de um produto na sacola do usuário
+app.post('/api/update-bag', authenticateToken, async (req, res) => {
+  const { plantioId, quantity } = req.body;
+  const userId = req.user.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    // Verificar se o plantio está na sacola do usuário
+    const item = user.bag.find(item => item.plantioId.toString() === plantioId);
+
+    if (!item) {
+      return res.status(404).json({ message: 'Item não encontrado na sacola.' });
+    }
+
+    // Atualizar a quantidade
+    item.quantity = quantity;
+
+    await user.save();
+
+    // Fetch the updated user data
+    const updatedUser = await User.findById(userId);
+
+    res.status(200).json({ success: true, message: 'Quantidade atualizada com sucesso!', user: updatedUser });
+  } catch (error) {
+    console.error('Erro ao atualizar a quantidade:', error);
+    res.status(500).json({ success: false, message: 'Erro ao atualizar a quantidade.' });
   }
 });
 

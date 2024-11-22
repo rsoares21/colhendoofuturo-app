@@ -3,5 +3,86 @@
   <div id="user-info">
     <!-- User information will be displayed here -->
   </div>
+  <h2>Itens na Sacola</h2>
+  <div id="user-bag">
+    <!-- Items in the user's bag will be displayed here -->
+  </div>
   <button id="logout-btn-conta">Sair</button>
 </div>
+<script>
+  function fetchUserInfo() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetch('/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.user) {
+          const userInfo = document.getElementById('user-info');
+          userInfo.innerHTML = `
+            <p><strong>Email:</strong> ${data.user.email}</p>
+            <p><strong>Créditos:</strong> ${data.user.credits}</p>
+          `;
+          const userBag = document.getElementById('user-bag');
+          userBag.innerHTML = ''; // Clear previous items
+          if (data.user.bag && data.user.bag.length > 0) {
+            data.user.bag.forEach(item => {
+              const itemDiv = document.createElement('div');
+              itemDiv.className = 'bag-item';
+              itemDiv.innerHTML = `
+                <p><strong>ID do Plantio:</strong> ${item.plantioId._id}</p>
+                <p><strong>Tipo:</strong> ${item.plantioId.tipo}</p>
+                <p><strong>Data de Plantio:</strong> ${new Date(item.plantioId.dataPlantio).toLocaleDateString()}</p>
+                <p><strong>Data de Colheita:</strong> ${new Date(item.plantioId.dataColheita).toLocaleDateString()}</p>
+                <p><strong>Créditos Necessários:</strong> ${item.plantioId.requiredCredits}</p>
+                <p><strong>Quantidade:</strong> <input type="number" value="${item.quantity}" min="1" data-plantio-id="${item.plantioId._id}" class="quantity-input"></p>
+              `;
+              userBag.appendChild(itemDiv);
+            });
+
+            // Add event listeners to quantity inputs
+            document.querySelectorAll('.quantity-input').forEach(input => {
+              input.addEventListener('change', updateQuantity);
+            });
+          } else {
+            userBag.innerHTML = '<p>Sua sacola está vazia.</p>';
+          }
+        }
+      });
+    }
+  }
+
+  function updateQuantity(event) {
+    const input = event.target;
+    const plantioId = input.getAttribute('data-plantio-id');
+    const quantity = parseInt(input.value, 10);
+
+    if (quantity < 1) {
+      alert('A quantidade deve ser pelo menos 1.');
+      input.value = 1;
+      return;
+    }
+
+    fetch('/api/update-bag', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+      body: JSON.stringify({ plantioId, quantity }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Quantidade atualizada com sucesso!');
+        fetchUserInfo(); // Refresh user info after updating quantity
+      } else {
+        alert('Erro ao atualizar a quantidade: ' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao atualizar a quantidade:', error);
+      alert('Erro ao atualizar a quantidade.');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', fetchUserInfo);
+</script>
