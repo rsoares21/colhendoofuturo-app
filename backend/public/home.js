@@ -151,21 +151,29 @@ document.addEventListener('DOMContentLoaded', async function() {
   const totalDays = (harvestDate - plantingDate) / (1000 * 60 * 60 * 24);
 
   function updateLettuceProgress() {
-    const currentDate = new Date();
-    const daysPassed = (currentDate - plantingDate) / (1000 * 60 * 60 * 24);
-    const daysLeft = totalDays - daysPassed;
-    const progressPercentage = (daysPassed / totalDays) * 100;
+    const progressBar = document.querySelector('#progress-bar-lettuce');
+    const daysLeftElement = document.querySelector('#days-left-lettuce');
 
-    const progressBar = document.getElementById('progress-bar');
-    const daysLeftElement = document.getElementById('days-left').querySelector('span');
+    if (progressBar && daysLeftElement) {
+      const plantingDate = new Date('2023-01-01'); // Example planting date
+      const harvestDate = new Date('2023-06-01'); // Example harvest date
+      const today = new Date();
+      const totalDays = (harvestDate - plantingDate) / (1000 * 60 * 60 * 24);
+      const daysPassed = (today - plantingDate) / (1000 * 60 * 60 * 24);
+      const progress = Math.min((daysPassed / totalDays) * 100, 100);
+      const daysLeft = Math.max(totalDays - daysPassed, 0);
 
-    progressBar.style.width = `${progressPercentage}%`;
-    daysLeftElement.textContent = Math.max(0, Math.ceil(daysLeft));
+      progressBar.style.width = `${progress}%`;
+      daysLeftElement.innerText = `Dias restantes: ${Math.ceil(daysLeft)}`;
+    } else {
+      console.error('Progress bar or days left element not found.');
+    }
   }
 
-  // Update the progress bar initially and then every day
-  updateLettuceProgress();
-  setInterval(updateLettuceProgress, 24 * 60 * 60 * 1000); // Update every day
+  document.addEventListener('DOMContentLoaded', () => {
+    updateLettuceProgress();
+    // ...other code...
+  });
 
   // Function to fetch and display user information
   async function fetchUserInfo(userId) {
@@ -260,11 +268,20 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
 
   const batchId = 'ALF-2023-001'; // Define the batch identifier
-  document.getElementById('batch-id').textContent = batchId;
+  const batchIdElement = document.getElementById('batch-id');
+  if (batchIdElement) {
+    batchIdElement.textContent = batchId;
+  } else {
+    console.error('Element with ID "batch-id" not found.');
+  }
 
   const applyBtn = document.getElementById('apply-btn');
-  applyBtn.addEventListener('click', function() {
-    alert(`Você se candidatou para receber uma muda de alface da colheita ${batchId}.`);
-    // Add additional logic to handle the application process
-  });
+  if (applyBtn) {
+    applyBtn.addEventListener('click', function() {
+      alert(`Você se candidatou para receber uma muda de alface da colheita ${batchId}.`);
+      // Add additional logic to handle the application process
+    });
+  } else {
+    console.error('Element with ID "apply-btn" not found.');
+  }
 });
