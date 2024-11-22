@@ -346,6 +346,71 @@ app.post('/api/update-bag', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'Item não encontrado na sacola.' });
     }
 
+    // Atualizar a quantidade ou remover o item se a quantidade for zero
+    if (quantity > 0) {
+      item.quantity = quantity;
+    } else {
+      user.bag = user.bag.filter(item => item.plantioId.toString() !== plantioId);
+    }
+
+    await user.save();
+
+    // Fetch the updated user data
+    const updatedUser = await User.findById(userId).populate('bag.plantioId');
+
+    res.status(200).json({ success: true, message: 'Quantidade atualizada com sucesso!', user: updatedUser });
+  } catch (error) {
+    console.error('Erro ao atualizar a quantidade:', error);
+    res.status(500).json({ success: false, message: 'Erro ao atualizar a quantidade.' });
+  }
+});
+
+// Rota para remover um produto da sacola do usuário
+app.post('/api/remove-from-bag', authenticateToken, async (req, res) => {
+  const { plantioId } = req.body;
+  const userId = req.user.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    // Remover o item da sacola
+    user.bag = user.bag.filter(item => item.plantioId.toString() !== plantioId);
+
+    await user.save();
+
+    // Fetch the updated user data
+    const updatedUser = await User.findById(userId).populate('bag.plantioId');
+
+    res.status(200).json({ success: true, message: 'Item removido com sucesso!', user: updatedUser });
+  } catch (error) {
+    console.error('Erro ao remover o item:', error);
+    res.status(500).json({ success: false, message: 'Erro ao remover o item.' });
+  }
+});
+
+// Rota para atualizar a quantidade de um produto na sacola do usuário
+app.post('/api/update-bag', authenticateToken, async (req, res) => {
+  const { plantioId, quantity } = req.body;
+  const userId = req.user.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    // Verificar se o plantio está na sacola do usuário
+    const item = user.bag.find(item => item.plantioId.toString() === plantioId);
+
+    if (!item) {
+      return res.status(404).json({ message: 'Item não encontrado na sacola.' });
+    }
+
     // Atualizar a quantidade
     item.quantity = quantity;
 

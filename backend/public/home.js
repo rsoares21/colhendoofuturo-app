@@ -176,11 +176,11 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
 
   // Function to fetch and display user information
-  async function fetchUserInfo(userId) {
+  async function fetchUserInfo() {
     try {
-      const response = await fetch(`/profile?userId=${userId}`, {
+      const response = await fetch('/profile', {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
       });
 
       const result = await response.json();
@@ -193,6 +193,41 @@ document.addEventListener('DOMContentLoaded', async function() {
           <p>Roles: ${result.user.roles.join(', ')}</p> <!-- Display user roles -->
           <p>Créditos: ${result.user.credits}</p> <!-- Display user credits -->
         `;
+
+        const userBag = document.getElementById('user-bag');
+        userBag.innerHTML = ''; // Clear previous items
+        if (result.user.bag && result.user.bag.length > 0) {
+          result.user.bag.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'bag-item';
+            itemDiv.innerHTML = `
+              <p><strong>ID do Plantio:</strong> ${item.plantioId._id}</p>
+              <p><strong>Tipo:</strong> ${item.plantioId.tipo}</p>
+              <p><strong>Data de Plantio:</strong> ${new Date(item.plantioId.dataPlantio).toLocaleDateString()}</p>
+              <p><strong>Data de Colheita:</strong> ${new Date(item.plantioId.dataColheita).toLocaleDateString()}</p>
+              <p><strong>Créditos Necessários:</strong> ${item.plantioId.requiredCredits}</p>
+              <p><strong>Quantidade:</strong> 
+                <button class="quantity-btn" data-plantio-id="${item.plantioId._id}" data-action="decrease">-</button>
+                <input type="number" value="${item.quantity}" min="1" data-plantio-id="${item.plantioId._id}" class="quantity-input" readonly>
+                <button class="quantity-btn" data-plantio-id="${item.plantioId._id}" data-action="increase">+</button>
+              </p>
+              <button class="remove-item-btn" data-plantio-id="${item.plantioId._id}">Remover</button>
+            `;
+            userBag.appendChild(itemDiv);
+          });
+
+          // Add event listeners to quantity buttons
+          document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', updateQuantity);
+          });
+
+          // Add event listeners to remove buttons
+          document.querySelectorAll('.remove-item-btn').forEach(button => {
+            button.addEventListener('click', removeItem);
+          });
+        } else {
+          userBag.innerHTML = '<p>Sua sacola está vazia.</p>';
+        }
 
         // Display "Administração" link if user has "ADMIN" role
         if (result.user.roles.includes('ADMIN')) {

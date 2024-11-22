@@ -172,8 +172,6 @@
         if (data.success) {
           alert('Produto adicionado à sacola com sucesso!');
           document.getElementById('plantio-modal').style.display = 'none';
-          // Update user info with the updated user data
-          updateUserInfo(data.user);
         } else {
           alert('Erro ao adicionar o produto à sacola: ' + data.message);
         }
@@ -182,34 +180,6 @@
         console.error('Erro ao adicionar o produto à sacola:', error);
         alert('Erro ao adicionar o produto à sacola.');
       });
-    }
-
-    // Function to update user info
-    function updateUserInfo(user) {
-      const userInfo = document.getElementById('user-info');
-      userInfo.innerHTML = `
-        <p><strong>Email:</strong> ${user.email}</p>
-        <p><strong>Créditos:</strong> ${user.credits}</p>
-      `;
-      const userBag = document.getElementById('user-bag');
-      userBag.innerHTML = ''; // Clear previous items
-      if (user.bag && user.bag.length > 0) {
-        user.bag.forEach(item => {
-          const itemDiv = document.createElement('div');
-          itemDiv.className = 'bag-item';
-          itemDiv.innerHTML = `
-            <p><strong>ID do Plantio:</strong> ${item.plantioId._id}</p>
-            <p><strong>Tipo:</strong> ${item.plantioId.tipo}</p>
-            <p><strong>Data de Plantio:</strong> ${new Date(item.plantioId.dataPlantio).toLocaleDateString()}</p>
-            <p><strong>Data de Colheita:</strong> ${new Date(item.plantioId.dataColheita).toLocaleDateString()}</p>
-            <p><strong>Créditos Necessários:</strong> ${item.plantioId.requiredCredits}</p>
-            <p><strong>Quantidade:</strong> ${item.quantity}</p>
-          `;
-          userBag.appendChild(itemDiv);
-        });
-      } else {
-        userBag.innerHTML = '<p>Sua sacola está vazia.</p>';
-      }
     }
 
     // Function to fetch user info
@@ -222,7 +192,7 @@
         .then(response => response.json())
         .then(data => {
           if (data.user) {
-            updateUserInfo(data.user);
+            // Update user info if necessary
           }
         });
       }

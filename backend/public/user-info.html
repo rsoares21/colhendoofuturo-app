@@ -36,14 +36,24 @@
                 <p><strong>Data de Plantio:</strong> ${new Date(item.plantioId.dataPlantio).toLocaleDateString()}</p>
                 <p><strong>Data de Colheita:</strong> ${new Date(item.plantioId.dataColheita).toLocaleDateString()}</p>
                 <p><strong>Créditos Necessários:</strong> ${item.plantioId.requiredCredits}</p>
-                <p><strong>Quantidade:</strong> <input type="number" value="${item.quantity}" min="1" data-plantio-id="${item.plantioId._id}" class="quantity-input"></p>
+                <p><strong>Quantidade:</strong> 
+                  <button class="quantity-btn" data-plantio-id="${item.plantioId._id}" data-action="decrease">-</button>
+                  <input type="number" value="${item.quantity}" min="1" data-plantio-id="${item.plantioId._id}" class="quantity-input" readonly>
+                  <button class="quantity-btn" data-plantio-id="${item.plantioId._id}" data-action="increase">+</button>
+                </p>
+                <button class="remove-item-btn" data-plantio-id="${item.plantioId._id}">Remover</button>
               `;
               userBag.appendChild(itemDiv);
             });
 
-            // Add event listeners to quantity inputs
-            document.querySelectorAll('.quantity-input').forEach(input => {
-              input.addEventListener('change', updateQuantity);
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn').forEach(button => {
+              button.addEventListener('click', updateQuantity);
+            });
+
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item-btn').forEach(button => {
+              button.addEventListener('click', removeItem);
             });
           } else {
             userBag.innerHTML = '<p>Sua sacola está vazia.</p>';
@@ -54,14 +64,16 @@
   }
 
   function updateQuantity(event) {
-    const input = event.target;
-    const plantioId = input.getAttribute('data-plantio-id');
-    const quantity = parseInt(input.value, 10);
+    const button = event.target;
+    const plantioId = button.getAttribute('data-plantio-id');
+    const action = button.getAttribute('data-action');
+    const input = document.querySelector(`input[data-plantio-id="${plantioId}"]`);
+    let quantity = parseInt(input.value, 10);
 
-    if (quantity < 1) {
-      alert('A quantidade deve ser pelo menos 1.');
-      input.value = 1;
-      return;
+    if (action === 'increase') {
+      quantity += 1;
+    } else if (action === 'decrease' && quantity > 1) {
+      quantity -= 1;
     }
 
     fetch('/api/update-bag', {
@@ -81,6 +93,30 @@
     .catch(error => {
       console.error('Erro ao atualizar a quantidade:', error);
       alert('Erro ao atualizar a quantidade.');
+    });
+  }
+
+  function removeItem(event) {
+    const button = event.target;
+    const plantioId = button.getAttribute('data-plantio-id');
+
+    fetch('/api/remove-from-bag', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+      body: JSON.stringify({ plantioId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Item removido com sucesso!');
+        fetchUserInfo(); // Refresh user info after removing item
+      } else {
+        alert('Erro ao remover o item: ' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao remover o item:', error);
+      alert('Erro ao remover o item.');
     });
   }
 
