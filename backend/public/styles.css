@@ -650,3 +650,61 @@ a {
 #add-to-bag-btn:hover {
   background-color: #45a049;
 }
+
+/* ...existing code... */
+
+.bag-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.bag-item p {
+  margin: 5px 0;
+}
+
+.bag-item input.quantity-input {
+  width: 40px;
+  padding: 5px;
+  margin: 0 5px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.bag-item button.quantity-btn {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.bag-item button.quantity-btn:hover {
+  background-color: #45a049;
+}
+
+.bag-item button.remove-item-btn {
+  background-color: #f66d87;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.bag-item button.remove-item-btn:hover {
+  background-color: #e55c7a;
+}
+
+/* ...existing code... */

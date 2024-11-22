@@ -241,6 +241,65 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
   }
 
+  // Function to update the quantity of an item in the user's bag
+  function updateQuantity(event) {
+    const button = event.target;
+    const plantioId = button.getAttribute('data-plantio-id');
+    const action = button.getAttribute('data-action');
+    const input = document.querySelector(`input[data-plantio-id="${plantioId}"]`);
+    let quantity = parseInt(input.value, 10);
+
+    if (action === 'increase') {
+      quantity += 1;
+    } else if (action === 'decrease' && quantity > 1) {
+      quantity -= 1;
+    }
+
+    fetch('/api/update-bag', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+      body: JSON.stringify({ plantioId, quantity }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Quantidade atualizada com sucesso!');
+        fetchUserInfo(); // Refresh user info after updating quantity
+      } else {
+        alert('Erro ao atualizar a quantidade: ' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao atualizar a quantidade:', error);
+      alert('Erro ao atualizar a quantidade.');
+    });
+  }
+
+  // Function to remove an item from the user's bag
+  function removeItem(event) {
+    const button = event.target;
+    const plantioId = button.getAttribute('data-plantio-id');
+
+    fetch('/api/remove-from-bag', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+      body: JSON.stringify({ plantioId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Item removido com sucesso!');
+        fetchUserInfo(); // Refresh user info after removing item
+      } else {
+        alert('Erro ao remover o item: ' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao remover o item:', error);
+      alert('Erro ao remover o item.');
+    });
+  }
+
   // Function to render charts
   function renderCharts() {
     const coletaCtx = document.getElementById('coletaChart').getContext('2d');
