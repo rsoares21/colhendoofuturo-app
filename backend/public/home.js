@@ -99,6 +99,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (tab === 'home') {
               renderCharts();
             }
+
+            // Fetch plantios when the search tab is selected
+            if (tab === 'buscar') {
+              fetchPlantios();
+            }
           }, 10); // Add a small delay to trigger the transition
         } else {
           content.classList.remove('active');
@@ -377,5 +382,97 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
   } else {
     console.error('Element with ID "apply-btn" not found.');
+  }
+
+  // Function to fetch plantios data from the backend and generate cards
+  async function fetchPlantios() {
+    try {
+      const response = await fetch('/api/plantios');
+      const plantios = await response.json();
+      const searchContainer = document.getElementById('search-container');
+      searchContainer.innerHTML = ''; // Clear previous content
+
+      plantios.forEach(plantio => {
+        const card = document.createElement('div');
+        card.className = 'plant-card';
+        card.innerHTML = `
+          <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="plant-thumb">
+          <div class="plant-info">
+            <p><strong>${plantio.tipo}</strong> &nbsp;<span style="font-size: 14px; color: #60752d;">(${plantio.requiredCredits} créditos)</span></p>
+            <div id="progress-bar-container" style="flex-grow: 1; margin: 10px 0; display: flex; align-items: center;">
+              <div id="progress-bar-${plantio._id}" style="width: 0; height: 20px; background-color: #4CAF50; border-radius: 25px; transition: width 0.5s ease-in-out;"></div>
+            </div>
+            <p id="days-left-${plantio._id}" style="font-size: 16px; color: #60752d;">Dias restantes: <span>${plantio.daysLeft}</span></p>
+            <p class="date-info left">Plantio: <strong style="font-size: 10px;">${new Date(plantio.dataPlantio).toLocaleDateString()}</strong></p>
+            <p class="date-info right">Colheita Prevista: <strong style="font-size: 10px;">${new Date(plantio.dataColheita).toLocaleDateString()}</strong></p>
+          </div>
+        `;
+        card.addEventListener('click', () => openModal(plantio)); // Add click event to open modal
+        searchContainer.appendChild(card);
+        updateProgressBar(plantio._id, plantio.dataPlantio, plantio.dataColheita);
+      });
+    } catch (error) {
+      console.error('Erro ao buscar plantios:', error);
+    }
+  }
+
+  function updateProgressBar(id, plantingDate, harvestDate) {
+    const progressBar = document.getElementById(`progress-bar-${id}`);
+    const daysLeftElement = document.getElementById(`days-left-${id}`);
+
+    if (progressBar && daysLeftElement) {
+      const today = new Date();
+      const totalDays = (new Date(harvestDate) - new Date(plantingDate)) / (1000 * 60 * 60 * 24);
+      const daysPassed = (today - new Date(plantingDate)) / (1000 * 60 * 60 * 24);
+      const progress = Math.min((daysPassed / totalDays) * 100, 100);
+      const daysLeft = Math.max(totalDays - daysPassed, 0);
+
+      progressBar.style.width = `${progress}%`;
+      daysLeftElement.innerText = `Dias restantes: ${Math.ceil(daysLeft)}`;
+    } else {
+      console.error('Progress bar or days left element not found.');
+    }
+  }
+
+  function openModal(plantio) {
+    const modal = document.getElementById('plantio-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+
+    modalTitle.innerText = `Detalhes do Plantio: ${plantio.tipo}`;
+    modalBody.innerHTML = `
+      <p><strong>Tipo:</strong> ${plantio.tipo}</p>
+      <p><strong>Data de Plantio:</strong> ${new Date(plantio.dataPlantio).toLocaleDateString()}</p>
+      <p><strong>Data de Colheita:</strong> ${new Date(plantio.dataColheita).toLocaleDateString()}</p>
+      <p><strong>Dias Restantes:</strong> ${plantio.daysLeft}</p>
+      <p><strong>Créditos Necessários:</strong> ${plantio.requiredCredits}</p>
+      <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="modal-thumb">
+    `;
+
+    const addToBagBtn = document.getElementById('add-to-bag-btn');
+    addToBagBtn.onclick = () => addToBag(plantio._id);
+
+    modal.style.display = 'block';
+  }
+
+  function addToBag(plantioId) {
+    fetch('/api/add-to-bag', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+      body: JSON.stringify({ plantioId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Item adicionado à sacola com sucesso!');
+        fetchUserInfo(); // Refresh user info after adding item to bag
+      } else {
+        alert('Erro ao adicionar o item à sacola: ' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao adicionar o item à sacola:', error);
+      alert('Erro ao adicionar o item à sacola.');
+    });
   }
 });

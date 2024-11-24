@@ -497,11 +497,12 @@ a {
   width: 90%;
   max-width: 400px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   margin: 20px auto; /* Center the component horizontally */
   color: #60752d;
+  z-index: 1; /* Ensure it is above other layers */
+  background: none; /* Remove background */
+  box-shadow: none; /* Remove box-shadow */
 }
 
 #search-container input {
@@ -524,6 +525,42 @@ a {
 
 #search-container button:hover {
   background-color: #e55c7a;
+}
+
+#search-container .plant-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  position: relative;
+  min-height: 120px;
+}
+
+#search-container .plant-thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+#search-container .date-info {
+  font-size: 10px;
+  position: absolute;
+  bottom: 10px;
+}
+
+#search-container .date-info.left {
+  left: 20px;
+  color: #4CAF50;
+}
+
+#search-container .date-info.right {
+  right: 20px;
+  color: gray;
 }
 
 .plant-card {
@@ -649,6 +686,30 @@ a {
 
 #add-to-bag-btn:hover {
   background-color: #45a049;
+}
+
+#plantio-modal {
+  // ...existing code...
+}
+
+#plantio-modal .modal-content {
+  // ...existing code...
+}
+
+#plantio-modal .close-btn {
+  // ...existing code...
+}
+
+#plantio-modal .modal-thumb {
+  // ...existing code...
+}
+
+#plantio-modal #add-to-bag-btn {
+  // ...existing code...
+}
+
+#plantio-modal #add-to-bag-btn:hover {
+  // ...existing code...
 }
 
 /* ...existing code... */

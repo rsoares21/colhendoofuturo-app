@@ -33,10 +33,6 @@
     <div class="tab-content" id="home-tab">
       <div class="tab-content-padded">
         <h1>Bem vindo!</h1>
-        <h3>Progresso das Mudas</h3>
-        <div id="plant-progress">
-          <!-- Cards will be dynamically generated here -->
-        </div>
         <h3>Relatório Coleta de Resíduos</h3>
         <canvas id="coletaChart" width="400" height="200"></canvas> <!-- Add canvas for coleta chart -->
         <canvas id="poluicaoChart" width="400" height="200"></canvas> <!-- Add canvas for poluicao chart -->
@@ -70,7 +66,7 @@
     <button class="tab-button" data-tab="conta"><i class="fas fa-user"></i></button>
   </div>
   <div id="plantio-modal" class="modal">
-    <div class="modal-content">
+    <div id="modal-content" class="modal-content">
       <span class="close-btn">&times;</span>
       <h2 id="modal-title">Detalhes do Plantio</h2>
       <p id="modal-body">Informações detalhadas do plantio serão exibidas aqui.</p>
@@ -98,89 +94,6 @@
       .then(data => {
         document.getElementById('user-info-component').innerHTML = data;
       });
-
-    // Fetch plantios data from the backend and generate cards
-    fetch('/api/plantios')
-      .then(response => response.json())
-      .then(plantios => {
-        const plantProgress = document.getElementById('plant-progress');
-        plantios.forEach(plantio => {
-          const card = document.createElement('div');
-          card.className = 'plant-card';
-          card.innerHTML = `
-            <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="plant-thumb">
-            <div class="plant-info">
-              <p><strong>${plantio.tipo}</strong> &nbsp;<span style="font-size: 14px; color: #60752d;">(${plantio.requiredCredits} créditos)</span></p> <!-- Add plant type and required credits -->
-              <div id="progress-bar-container" style="flex-grow: 1; margin: 10px 0; display: flex; align-items: center;">
-                <div id="progress-bar-${plantio._id}" style="width: 0; height: 20px; background-color: #4CAF50; border-radius: 25px; transition: width 0.5s ease-in-out;"></div>
-              </div>
-              <p id="days-left-${plantio._id}" style="font-size: 16px; color: #60752d;">Dias restantes: <span>${plantio.daysLeft}</span></p>
-              <p class="date-info left">Plantio: <strong style="font-size: 10px;">${new Date(plantio.dataPlantio).toLocaleDateString()}</strong></p>
-              <p class="date-info right">Colheita Prevista: <strong style="font-size: 10px;">${new Date(plantio.dataColheita).toLocaleDateString()}</strong></p>
-            </div>
-          `;
-          card.addEventListener('click', () => openModal(plantio)); // Add click event to open modal
-          plantProgress.appendChild(card);
-          updateProgressBar(plantio._id, plantio.dataPlantio, plantio.dataColheita);
-        });
-      });
-
-    function updateProgressBar(id, plantingDate, harvestDate) {
-      const plantingDateObj = new Date(plantingDate);
-      const harvestDateObj = new Date(harvestDate);
-      const today = new Date();
-      const totalDays = (harvestDateObj - plantingDateObj) / (1000 * 60 * 60 * 24);
-      const daysPassed = (today - plantingDateObj) / (1000 * 60 * 60 * 24);
-      const progress = Math.min((daysPassed / totalDays) * 100, 100);
-      const daysLeft = Math.max(totalDays - daysPassed, 0);
-
-      document.getElementById(`progress-bar-${id}`).style.width = `${progress}%`;
-      document.getElementById(`days-left-${id}`).innerText = `Dias restantes: ${Math.ceil(daysLeft)}`;
-    }
-
-    // Function to open the modal with plantio details
-    function openModal(plantio) {
-      const modal = document.getElementById('plantio-modal');
-      const modalTitle = document.getElementById('modal-title');
-      const modalBody = document.getElementById('modal-body');
-      const addToBagBtn = document.getElementById('add-to-bag-btn');
-
-      modalTitle.innerText = `Detalhes do Plantio: ${plantio.tipo}`;
-      modalBody.innerHTML = `
-        <p><strong>Tipo:</strong> ${plantio.tipo}</p>
-        <p><strong>Data de Plantio:</strong> ${new Date(plantio.dataPlantio).toLocaleDateString()}</p>
-        <p><strong>Data de Colheita:</strong> ${new Date(plantio.dataColheita).toLocaleDateString()}</p>
-        <p><strong>Dias Restantes:</strong> ${plantio.daysLeft}</p>
-        <p><strong>Créditos Necessários:</strong> ${plantio.requiredCredits}</p>
-        <img src="${plantio.thumbnail}" alt="${plantio.tipo} Thumbnail" class="modal-thumb">
-      `;
-
-      addToBagBtn.onclick = () => addToBag(plantio._id);
-
-      modal.style.display = 'block';
-    }
-
-    // Function to add the product to the user's bag
-    function addToBag(plantioId) {
-      fetch('/api/add-to-bag', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
-        body: JSON.stringify({ plantioId }),
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          alert('Produto adicionado à sacola com sucesso!');
-          document.getElementById('plantio-modal').style.display = 'none';
-        } else {
-          alert('Erro ao adicionar o produto à sacola: ' + data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Erro ao adicionar o produto à sacola:', error);
-        alert('Erro ao adicionar o produto à sacola.');
-      });
-    }
 
     // Function to fetch user info
     function fetchUserInfo() {
